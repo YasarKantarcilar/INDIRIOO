@@ -8,6 +8,10 @@ import { auth, db, storage } from "../../firebase";
 import { setDoc, doc, collection } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { Link } from "react-router-dom";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
 function RestaurantApplication() {
   const [name, setName] = useState("");
@@ -16,11 +20,16 @@ function RestaurantApplication() {
   const [taxNo, setTaxNo] = useState("");
   const [ownerName, setOwnerName] = useState("");
   const [ownerTel, setOwnerTel] = useState("");
+  const [tel, setTel] = useState("");
+  const [closingTime, setClosingTime] = useState("");
+  const [address, setAddress] = useState("");
+  const [openingTime, setOpeningTime] = useState("");
   const [text, settext] = useState("");
   const [isSubmitting, setisSubmitting] = useState(true);
   const [imgUrl, setimgUrl] = useState(null);
   const [imgUpload, setImgUpload] = useState(null);
   const [buttonText, setbuttonText] = useState("FOTOGRAF YUKLEYINIZ");
+  const [field, setField] = useState("");
   const colRef = collection(db, "Restaurants");
 
   function handleUploadImg(e) {
@@ -47,6 +56,11 @@ function RestaurantApplication() {
       taxNo !== "" &&
       ownerName !== "" &&
       ownerTel !== "" &&
+      tel !== "" &&
+      closingTime !== "" &&
+      openingTime !== "" &&
+      address !== "" &&
+      field !== "" &&
       imgUrl !== null
     ) {
       const documentRef = doc(colRef, auth.currentUser.uid);
@@ -62,6 +76,11 @@ function RestaurantApplication() {
         createdBy: auth.currentUser.uid,
         createDate: new Date(),
         isAccepted: false,
+        restaurantTel: tel,
+        openingTime: openingTime,
+        closingTime: closingTime,
+        address: address,
+        field: field,
       })
         .then(() => {
           settext("BASVURUNUZ ALINMISTIR, YONLENDIRILIYORSUNUZ");
@@ -96,9 +115,9 @@ function RestaurantApplication() {
             borderTopRightRadius: "10px",
             borderTopLeftRadius: "10px",
             bgColor: "black",
-            mt: 5,
+            mt: 8,
             width: "600px",
-            height: "600px",
+            height: "700px",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -159,6 +178,22 @@ function RestaurantApplication() {
                 label="VERGI DAIRESI"
                 variant="outlined"
               />
+              <TextField
+                value={tel}
+                onChange={(e) => setTel(e.target.value)}
+                required
+                id="outlined-basic"
+                label="İŞLETME TELEFONU"
+                variant="outlined"
+              />
+              <TextField
+                value={closingTime}
+                onChange={(e) => setClosingTime(e.target.value)}
+                required
+                id="outlined-basic"
+                label="KAPANMA SAATI"
+                variant="outlined"
+              />
             </Box>
             <Box
               sx={{
@@ -193,7 +228,64 @@ function RestaurantApplication() {
                 label="YETKILI TELEFON"
                 variant="outlined"
               />
+              <TextField
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+                required
+                id="outlined-basic"
+                label="AÇIK ADRES"
+                variant="outlined"
+              />
+              <TextField
+                value={openingTime}
+                onChange={(e) => setOpeningTime(e.target.value)}
+                required
+                id="outlined-basic"
+                label="AÇILMA SAATI"
+                variant="outlined"
+              />
             </Box>
+          </Box>
+          <Box sx={{ minWidth: 400 }}>
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">
+                Hangi Sektördesiniz
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={field}
+                label="Hangi Sektördesiniz"
+                onChange={(e) => {
+                  setField(e.target.value);
+                }}
+              >
+                <MenuItem value={"BURGER"}>HAMBURGER</MenuItem>
+                <MenuItem value={"DONER"}>DONER</MenuItem>
+                <MenuItem value={"PIZZA"}>PIZZA</MenuItem>
+                <MenuItem value={"KEBAP-IZGARA"}>KEBAP-IZGARA</MenuItem>
+                <MenuItem value={"TAVUK"}>TAVUK</MenuItem>
+                <MenuItem value={"KOFTE"}>KOFTE</MenuItem>
+                <MenuItem value={"PIDE-LAHMACUN"}>PIDE-LAHMACUN</MenuItem>
+                <MenuItem value={"SOKAK-LEZZETLERI"}>SOKAK LEZZETLERI</MenuItem>
+                <MenuItem value={"CIGKOFTE"}>CIGKOFTE</MenuItem>
+                <MenuItem value={"TOST"}>TOST</MenuItem>
+                <MenuItem value={"EV-YEMEKLERI"}>EV YEMEKLERI</MenuItem>
+                <MenuItem value={"DUNYA-MUTFAGI"}>DUNYA MUTFAGI</MenuItem>
+                <MenuItem value={"VEJETERYAN"}>VEJETERYAN</MenuItem>
+                <MenuItem value={"KAHVALTI"}>KAHVALTI</MenuItem>
+                <MenuItem value={"PASTANE-FIRIN"}>PASTANE/FIRIN</MenuItem>
+                <MenuItem value={"SALATA"}>SALATA</MenuItem>
+                <MenuItem value={"MANTI"}>MANTI</MenuItem>
+                <MenuItem value={"DENIZ-URUNLERI"}>DENIZ URUNLERI</MenuItem>
+                <MenuItem value={"TANTUNI"}>TANTUNI</MenuItem>
+                <MenuItem value={"PILAV"}>PILAV</MenuItem>
+                <MenuItem value={"MEZE"}>MEZE</MenuItem>
+                <MenuItem value={"DONDURMA"}>DONDURMA</MenuItem>
+                <MenuItem value={"TATLI"}>TATLI</MenuItem>
+                <MenuItem value={"KAHVE"}>KAHVE</MenuItem>
+              </Select>
+            </FormControl>
           </Box>
           <Box
             sx={{
@@ -234,7 +326,7 @@ function RestaurantApplication() {
               sx={{
                 color: "white",
                 width: "210px",
-                height: "50px",
+                height: "70px",
               }}
               disabled
               onClick={(e) => handleSubmit(e)}

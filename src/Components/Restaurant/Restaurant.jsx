@@ -34,18 +34,23 @@ function Restaurant() {
         console.log("Error getting document:", error);
       });
   }, []);
+  console.log(data);
   return (
     <>
       <Navbar />
-      <Container sx={{ display: "flex", flexDirection: "column" }}>
+      <Container
+        sx={{ display: "flex", flexDirection: "column", marginTop: "30px" }}
+      >
         <Box
           sx={{
             marginTop: "64px",
             display: "flex",
+            gap: "20px",
+            flexDirection: { xs: "column", md: "row" },
             justifyContent: "space-between",
           }}
         >
-          <Box sx={{ width: "48%" }}>
+          <Box sx={{ width: { xs: "100%", s: "49%" } }}>
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1503.2045807071834!2d29.025776008001202!3d41.10375432332514!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab5e8e292693d%3A0xf77b90dec6392e12!2sIstanbul%20Technical%20University%20-%20Mineral%20Processing%20Eng.%20Dept.%20-%20Surface%20Chemistry%20Research%20Group!5e0!3m2!1str!2str!4v1680777808117!5m2!1str!2str"
               width="100%"
@@ -54,25 +59,83 @@ function Restaurant() {
           </Box>
           <Box
             sx={{
-              display: "flex",
-              alignItems: "center",
-              flexDirection: "column",
-              justifyContent: "center",
-              width: "48%",
+              width: { xs: "100%", s: "49%" },
               height: "450px",
+              boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
             }}
           >
-            <Typography
-              sx={{ marginTop: "15px", textAlign: "center" }}
-              variant="h3"
+            <Box
+              sx={{
+                boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+                display: "flex",
+                alignItems: "center",
+                marginLeft: "15px",
+                marginRight: "15px",
+                marginTop: "15px",
+                gap: "30px",
+              }}
             >
-              {data.name}
-            </Typography>
+              <Box sx={{ marginLeft: "25px", width: "100px", height: "100px" }}>
+                <Image src={data.imgUrl} />
+              </Box>
+              <Typography
+                sx={{ marginTop: "15px", textAlign: "center" }}
+                variant="h5"
+              >
+                {data.name}
+              </Typography>
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "30px",
+                marginLeft: "15px",
+                marginTop: "15px",
+              }}
+            >
+              <Typography
+                sx={{
+                  fontSize: "18px",
+                  fontWeight: "400",
+                }}
+              >
+                Restoran Türü: {data.field}
+              </Typography>
 
-            <Image
-              sx={{ width: "80%", textAlign: "center" }}
-              src={data.imgUrl}
-            />
+              <Typography
+                sx={{
+                  fontSize: "18px",
+                  fontWeight: "400",
+                }}
+              >
+                AÇILIŞ: {data.openingTime}:00
+              </Typography>
+              <Typography
+                sx={{
+                  fontSize: "18px",
+                  fontWeight: "400",
+                }}
+              >
+                KAPANIS: {data.closingTime}:00
+              </Typography>
+              <Typography
+                sx={{
+                  fontSize: "18px",
+                  fontWeight: "400",
+                }}
+              >
+                İLETİŞİM: {data.restaurantTel}
+              </Typography>
+              <Typography
+                sx={{
+                  fontSize: "18px",
+                  fontWeight: "400",
+                }}
+              >
+                ADRES: {data.address}
+              </Typography>
+            </Box>
           </Box>
         </Box>
         <Box
@@ -91,8 +154,8 @@ function Restaurant() {
                 minHeight: 200,
                 maxHeight: 350,
                 my: 1,
-                width: { xs: "49%", sm: "32%", md: "24%" },
-                border: "2px solid #E14D2A",
+                width: { xs: "32%", sm: "24", md: "19%" },
+                boxShadow: "rgba(0, 0, 0, 0.1) 0px 4px 12px",
               }}
             >
               <Image src={item.imgUrl} width={"100%"} height={"60%"} />
@@ -114,7 +177,7 @@ function Restaurant() {
                   mx: "5%",
                   width: "90%",
                   overflow: "hidden",
-                  height: "30%",
+                  height: "20%",
                 }}
               >
                 <Typography
@@ -127,6 +190,21 @@ function Restaurant() {
                   variant="p"
                 >
                   {item.description}
+                </Typography>
+              </Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  height: "10%",
+                }}
+              >
+                <Typography
+                  sx={{ textAlign: "center", width: "100%" }}
+                  variant="p"
+                >
+                  {item.price}
                 </Typography>
               </Box>
             </Box>

@@ -43,25 +43,47 @@ export default function Restaurants() {
       >
         {data.map((item, idx) => (
           <Box
+            onClick={() => {
+              window.location.pathname = `Restaurant/${item[1]}`;
+            }}
             key={idx}
             component="div"
             sx={{
+              borderRadius: "5px",
+              boxShadow: "rgba(17, 17, 26, 0.1) 0px 1px 0px",
+              cursor: "pointer",
               p: 0,
               minHeight: 200,
               maxHeight: 350,
               msOverflowStyle: "none",
               my: 1,
-              width: { xs: "49%", sm: "32%", md: "24%" },
-              border: "2px solid #E14D2A",
+              width: { xs: "32%", sm: "24%", md: "19%" },
             }}
           >
-            {<Image src={item[0].imgUrl} width={"100%"} height={"60%"} />}
-            <Typography
-              sx={{ display: "block", textAlign: "center" }}
-              variant="h5"
-            >
-              {item[0].name}
-            </Typography>
+            {
+              <Image
+                style={{
+                  borderTopLeftRadius: "10px",
+                  borderTopRightRadius: "10px",
+                }}
+                src={item[0].imgUrl}
+                width={"100%"}
+                height={"70%"}
+              />
+            }
+            <Box sx={{ display: "flex", flexDirection: "column" }}>
+              <Typography sx={{ fontWeight: "600" }} variant="p">
+                {item[0].name}
+              </Typography>
+              <Box sx={{ display: "flex", gap: "10px" }}>
+                <Typography
+                  sx={{ fontSize: "14px", fontWeight: "300", color: "green" }}
+                  variant="p"
+                >
+                  {item[0].field}
+                </Typography>
+              </Box>
+            </Box>
             <Box
               sx={{
                 width: "100%",
@@ -69,11 +91,7 @@ export default function Restaurants() {
                 alignItems: "center",
                 justifyContent: "center",
               }}
-            >
-              <Link color="orange" to={`Restaurant/${item[1]}`}>
-                <Typography color={"orange"}>DETAYLAR</Typography>
-              </Link>
-            </Box>
+            ></Box>
           </Box>
         ))}
       </Box>
