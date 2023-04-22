@@ -4,7 +4,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import { Container } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import Navbar from "../Layout/Navbar";
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -16,12 +16,13 @@ function Login() {
   }
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [text, settext] = useState();
   const handleLogin = (e) => {
     signInWithEmailAndPassword(auth, email, password)
       .then((user) => {
         window.location.pathname = "/";
       })
-      .catch((err) => console.log(err));
+      .catch((err) => settext("HATALI KULLANICI ADI SIFRE"));
   };
   return (
     <>
@@ -102,6 +103,7 @@ function Login() {
           <Button variant="text">
             <Link to={"/Register"}>Şifremi Unuttum</Link>
           </Button>
+          <Typography>{text}</Typography>
         </Box>
       </Container>
     </>

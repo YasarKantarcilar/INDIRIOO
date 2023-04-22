@@ -157,7 +157,7 @@ function Navbar(props) {
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "flex" }, gap: "10px" }}>
             {navItems.map((item, idx) => (
-              <Button key={idx} sx={{ fontSize: "16px", color: "#fff" }}>
+              <Button key={idx} sx={{ fontSize: "14px", color: "#fff" }}>
                 {
                   <Link underline="none" color="inherit" to={`/${item[1]}`}>
                     {item[0]}
@@ -167,7 +167,7 @@ function Navbar(props) {
             ))}
           </Box>
           {isLogged ? (
-            <Button sx={{ fontSize: "16px", color: "#fff" }}>
+            <Button sx={{ fontSize: "14px", color: "#fff" }}>
               <Link to={"/RestaurantApplication"}>Bizimle Çalış</Link>
             </Button>
           ) : (
@@ -183,7 +183,7 @@ function Navbar(props) {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                fontSize: "16px",
+                fontSize: "14px",
                 width: "100px",
                 display: { xs: "none", sm: "flex" },
                 color: "#fff",

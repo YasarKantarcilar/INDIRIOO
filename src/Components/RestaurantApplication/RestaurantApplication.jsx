@@ -12,6 +12,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import FieldsData from "../FieldsData";
 
 function RestaurantApplication() {
   const [name, setName] = useState("");
@@ -260,30 +261,9 @@ function RestaurantApplication() {
                   setField(e.target.value);
                 }}
               >
-                <MenuItem value={"BURGER"}>HAMBURGER</MenuItem>
-                <MenuItem value={"DONER"}>DONER</MenuItem>
-                <MenuItem value={"PIZZA"}>PIZZA</MenuItem>
-                <MenuItem value={"KEBAP-IZGARA"}>KEBAP-IZGARA</MenuItem>
-                <MenuItem value={"TAVUK"}>TAVUK</MenuItem>
-                <MenuItem value={"KOFTE"}>KOFTE</MenuItem>
-                <MenuItem value={"PIDE-LAHMACUN"}>PIDE-LAHMACUN</MenuItem>
-                <MenuItem value={"SOKAK-LEZZETLERI"}>SOKAK LEZZETLERI</MenuItem>
-                <MenuItem value={"CIGKOFTE"}>CIGKOFTE</MenuItem>
-                <MenuItem value={"TOST"}>TOST</MenuItem>
-                <MenuItem value={"EV-YEMEKLERI"}>EV YEMEKLERI</MenuItem>
-                <MenuItem value={"DUNYA-MUTFAGI"}>DUNYA MUTFAGI</MenuItem>
-                <MenuItem value={"VEJETERYAN"}>VEJETERYAN</MenuItem>
-                <MenuItem value={"KAHVALTI"}>KAHVALTI</MenuItem>
-                <MenuItem value={"PASTANE-FIRIN"}>PASTANE/FIRIN</MenuItem>
-                <MenuItem value={"SALATA"}>SALATA</MenuItem>
-                <MenuItem value={"MANTI"}>MANTI</MenuItem>
-                <MenuItem value={"DENIZ-URUNLERI"}>DENIZ URUNLERI</MenuItem>
-                <MenuItem value={"TANTUNI"}>TANTUNI</MenuItem>
-                <MenuItem value={"PILAV"}>PILAV</MenuItem>
-                <MenuItem value={"MEZE"}>MEZE</MenuItem>
-                <MenuItem value={"DONDURMA"}>DONDURMA</MenuItem>
-                <MenuItem value={"TATLI"}>TATLI</MenuItem>
-                <MenuItem value={"KAHVE"}>KAHVE</MenuItem>
+                {FieldsData.map((item, idx) => (
+                  <MenuItem value={item[0]}>{item[1]}</MenuItem>
+                ))}
               </Select>
             </FormControl>
           </Box>

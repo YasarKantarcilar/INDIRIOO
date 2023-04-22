@@ -4,31 +4,109 @@ import Box from "@mui/material/Box";
 import { db } from "../../firebase";
 import { Container, Typography } from "@mui/material";
 import Image from "mui-image";
-import { collection } from "firebase/firestore";
-import { Link } from "react-router-dom";
+import { collection, onSnapshot } from "firebase/firestore";
+import FieldsData from "../FieldsData";
+import { Swiper, SwiperSlide } from "swiper/react";
 
+import "swiper/css";
+import "swiper/css/grid";
+import "swiper/css/pagination";
+
+import { Pagination } from "swiper";
 export default function Restaurants() {
   const [data, setData] = useState([]);
+  const [queryField, setQueryfield] = useState("DONER");
+
+  const colRef = collection(db, "Restaurants");
+  const stateQuery = query(
+    colRef,
+    where("isAccepted", "==", true),
+    where("field", "==", queryField)
+  );
 
   useEffect(() => {
-    const colRef = collection(db, "Restaurants");
-    const stateQuery = query(colRef, where("isAccepted", "==", true));
-
-    const applications = [];
-    getDocs(stateQuery)
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          applications.push([doc.data(), doc.id]);
-        });
-        setData(applications);
-      })
-      .catch((error) => {
+    const unsubscribe = onSnapshot(
+      stateQuery,
+      (querySnapshot) => {
+        const docs = querySnapshot.docs.map((doc) => [doc.data(), doc.id]);
+        setData(docs);
+        console.log(docs);
+      },
+      (error) => {
         console.log("Error getting documents: ", error);
-      });
-  }, []);
+      }
+    );
 
+    return () => {
+      unsubscribe();
+    };
+  }, [queryField]);
   return (
     <Container>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "flex-start",
+          width: "100%",
+          gap: "10px",
+        }}
+      >
+        <Swiper
+          style={{ marginTop: "30px" }}
+          slidesPerView={7.5}
+          spaceBetween={5}
+          /* pagination={{
+            clickable: true,
+          }} */
+          breakpoints={{
+            "@0.00": {
+              slidesPerView: 7.5,
+              spaceBetween: 10,
+            },
+            "@0.75": {
+              slidesPerView: 7.5,
+              spaceBetween: 10,
+            },
+            "@1.00": {
+              slidesPerView: 7.5,
+              spaceBetween: 10,
+            },
+            "@1.50": {
+              slidesPerView: 7.5,
+              spaceBetween: 10,
+            },
+          }}
+          modules={[Pagination]}
+          className="mySwiper"
+        >
+          {FieldsData.map((item, idx) => (
+            <SwiperSlide
+              key={idx}
+              style={{
+                height: "180px",
+                width: "100px",
+                cursor: "pointer",
+              }}
+              onClick={() => {
+                setQueryfield(item[1]);
+              }}
+            >
+              <Box sx={{ height: "50%", borderRadius: "50%" }}>
+                <Image src={item[2]} />
+              </Box>
+              <Typography
+                sx={{
+                  textAlign: "center",
+                  marginTop: "15px",
+                }}
+              >
+                {item[0]}
+              </Typography>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </Box>
       <Typography sx={{ my: 3, textAlign: "center" }} variant="h4">
         BANA EN YAKIN RESTORANLAR
       </Typography>
