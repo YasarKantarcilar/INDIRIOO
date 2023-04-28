@@ -68,7 +68,6 @@ function Restaurant() {
               sx={{
                 display: "flex",
                 alignItems: "center",
-                marginLeft: "15px",
                 marginRight: "15px",
                 marginTop: "15px",
                 gap: "30px",
@@ -84,10 +83,10 @@ function Restaurant() {
                 <Image
                   src={data.imgUrl}
                   style={{
-                    width: "100px",
+                    width: "200px",
                     height: "100px",
                     border: "1px solid black",
-                    borderRadius: "50%",
+                    borderRadius: "15px",
                   }}
                 />
               </Box>

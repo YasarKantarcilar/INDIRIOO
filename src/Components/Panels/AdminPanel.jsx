@@ -6,6 +6,8 @@ import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import StorefrontIcon from "@mui/icons-material/Storefront";
 import ConfirmationNumberIcon from "@mui/icons-material/ConfirmationNumber";
 import Requests from "./AdminPanelPages/Requests";
+import Users from "./AdminPanelPages/Users";
+import AdminPanelRestaurants from "./AdminPanelPages/AdminPanelRestaurants";
 
 function AdminPanel() {
   const [pageNumber, setPageNumber] = useState(1);
@@ -41,7 +43,8 @@ function AdminPanel() {
       <Box
         sx={{
           display: "flex",
-          position: "absolute",
+          position: "fixed",
+
           flexDirection: "column",
           left: "0",
           boxShadow: "rgba(0, 0, 0, 0.35) 0px -50px 36px -28px inset",
@@ -102,13 +105,15 @@ function AdminPanel() {
       <Box
         sx={{
           width: { xs: "70vw", sm: "80vw" },
-          minHeight: "100vh",
+          height: "100vh",
           paddingTop: "64px",
           position: "absolute",
           right: 0,
         }}
       >
         {pageNumber === 2 && <Requests />}
+        {pageNumber === 3 && <Users />}
+        {pageNumber === 4 && <AdminPanelRestaurants />}
       </Box>
     </Box>
   );
