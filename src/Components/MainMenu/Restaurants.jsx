@@ -89,7 +89,7 @@ export default function Restaurants() {
                 cursor: "pointer",
               }}
               onClick={() => {
-                setQueryfield(item[1]);
+                setQueryfield(item[0]);
               }}
             >
               <Box sx={{ height: "50%", borderRadius: "50%" }}>

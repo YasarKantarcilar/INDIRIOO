@@ -92,6 +92,7 @@ function Register() {
             id="outlined-basic"
             label="Şifre"
             variant="outlined"
+            type="password"
           />
           <TextField
             value={password2}

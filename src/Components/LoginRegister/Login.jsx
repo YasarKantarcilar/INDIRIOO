@@ -14,9 +14,9 @@ function Login() {
   if (auth.currentUser) {
     window.location.pathname = "/";
   }
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-  const [text, settext] = useState();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [text, settext] = useState("");
   const handleLogin = (e) => {
     signInWithEmailAndPassword(auth, email, password)
       .then((user) => {
@@ -66,6 +66,7 @@ function Login() {
           />
           <TextField
             value={password}
+            type="password"
             onChange={(e) => {
               setPassword(e.target.value);
             }}

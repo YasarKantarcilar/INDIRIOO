@@ -66,7 +66,6 @@ function Restaurant() {
           >
             <Box
               sx={{
-                boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
                 display: "flex",
                 alignItems: "center",
                 marginLeft: "15px",
@@ -75,15 +74,40 @@ function Restaurant() {
                 gap: "30px",
               }}
             >
-              <Box sx={{ marginLeft: "25px", width: "100px", height: "100px" }}>
-                <Image src={data.imgUrl} />
-              </Box>
-              <Typography
-                sx={{ marginTop: "15px", textAlign: "center" }}
-                variant="h5"
+              <Box
+                sx={{
+                  marginLeft: "25px",
+                  width: "100px",
+                  height: "100px",
+                }}
               >
-                {data.name}
-              </Typography>
+                <Image
+                  src={data.imgUrl}
+                  style={{
+                    width: "100px",
+                    height: "100px",
+                    border: "1px solid black",
+                    borderRadius: "50%",
+                  }}
+                />
+              </Box>
+              <Box
+                sx={{
+                  height: "100px",
+                  width: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+                }}
+              >
+                <Typography
+                  sx={{ marginTop: "15px", textAlign: "center" }}
+                  variant="h4"
+                >
+                  {data.name}
+                </Typography>
+              </Box>
             </Box>
             <Box
               sx={{
@@ -204,7 +228,7 @@ function Restaurant() {
                   sx={{ textAlign: "center", width: "100%" }}
                   variant="p"
                 >
-                  {item.price}
+                  {item.price}₺
                 </Typography>
               </Box>
             </Box>

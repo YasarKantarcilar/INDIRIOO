@@ -25,20 +25,30 @@ import { getDoc, doc } from "firebase/firestore";
 const drawerWidth = 150;
 const navItems = [
   ["ANA SAYFA", ""],
-  ["Panel", "Panel"],
   ["ILETISIM", "Contact"],
 ];
 
 function Navbar(props) {
+  const [panel, setPanel] = useState(false);
+  console.log(panel);
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         const docRef = doc(db, "users", user.uid);
-        getDoc(docRef).then((doc) => {});
+        getDoc(docRef).then((doc) => {
+          if (
+            doc.data().isAdmin === true ||
+            doc.data().restaurantOwner === true
+          ) {
+            setPanel(true);
+            console.log(panel);
+          }
+        });
         setIsLogged(true);
       } else {
         console.log("NOT LOGGED");
         setIsLogged(false);
+        setPanel(false);
       }
     });
 
@@ -73,27 +83,46 @@ function Navbar(props) {
             </ListItemButton>
           </ListItem>
         ))}
-        {isLogged ? (
-          <Button
-            sx={{ color: "white" }}
-            onClick={(e) => {
-              signOut(auth);
-            }}
-          >
-            CIKIS YAP
-          </Button>
-        ) : (
+
+        {panel && (
           <ListItem disablePadding>
             <ListItemButton sx={{ textAlign: "center" }}>
               <ListItemText
                 primary={
-                  <Link underline="none" color="inherit" to={"/Login"}>
-                    Giriş Yap
+                  <Link underline="none" color="inherit" to={`/Panel`}>
+                    Panel
                   </Link>
                 }
               />
             </ListItemButton>
           </ListItem>
+        )}
+
+        {isLogged ? (
+          <Box>
+            <Button
+              sx={{ color: "white" }}
+              onClick={(e) => {
+                signOut(auth);
+              }}
+            >
+              CIKIS YAP
+            </Button>
+          </Box>
+        ) : (
+          <Box>
+            <ListItem disablePadding>
+              <ListItemButton sx={{ textAlign: "center" }}>
+                <ListItemText
+                  primary={
+                    <Link underline="none" color="inherit" to={"/Login"}>
+                      GIRIS YAP
+                    </Link>
+                  }
+                />
+              </ListItemButton>
+            </ListItem>
+          </Box>
         )}
         {isLogged ? (
           <Link
@@ -119,7 +148,7 @@ function Navbar(props) {
                 color: "#fff",
               }}
             >
-              Giriş Yap
+              GIRIS YAP
             </Button>
           </Link>
         )}
@@ -133,10 +162,10 @@ function Navbar(props) {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar sx={{ bgColor: "#c36b36" }} component="nav">
+      <AppBar sx={{ bgColor: "#FA4A0C" }} component="nav">
         <Toolbar
           sx={{
-            backgroundColor: "#f2930d",
+            backgroundColor: "#FA4A0C",
           }}
         >
           <IconButton
@@ -165,6 +194,13 @@ function Navbar(props) {
                 }
               </Button>
             ))}
+            {panel && (
+              <Button sx={{ fontSize: "14px", color: "#fff" }}>
+                <Link underline="none" color="inherit" to={`/Panel`}>
+                  Panel
+                </Link>
+              </Button>
+            )}
           </Box>
           {isLogged ? (
             <Button sx={{ fontSize: "14px", color: "#fff" }}>
@@ -189,7 +225,7 @@ function Navbar(props) {
                 color: "#fff",
               }}
             >
-              Giriş Yap
+              GIRIS YAP
             </Link>
           )}
           {isLogged ? (
