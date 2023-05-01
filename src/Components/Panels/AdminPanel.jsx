@@ -66,6 +66,7 @@ function AdminPanel() {
         >
           {sidebarItems.map((item, idx) => (
             <Box
+              key={idx}
               sx={{
                 paddingLeft: "10px",
                 width: { xs: "30vw", sm: "20vw" },

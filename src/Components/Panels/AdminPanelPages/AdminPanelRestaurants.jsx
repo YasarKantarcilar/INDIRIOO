@@ -57,9 +57,9 @@ function AdminPanelRestaurants() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map((row) => (
+            {data.map((row, idx) => (
               <TableRow
-                key={row.name}
+                key={idx}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell align="right" component="th" scope="row">

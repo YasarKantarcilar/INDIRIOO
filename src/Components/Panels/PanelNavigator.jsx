@@ -7,9 +7,11 @@ import { useState } from "react";
 import AdminPanel from "./AdminPanel";
 import RestaurantPanel from "./RestaurantPanel";
 import Navbar from "../Layout/Navbar";
+import Restaurants from "../MainMenu/Restaurants";
 
 function PanelNavigator() {
   const [userData, setUserData] = useState([]);
+  console.log(userData);
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -19,6 +21,7 @@ function PanelNavigator() {
         });
       } else {
         console.log("NOT LOGGED");
+        window.location.pathname = "/";
       }
     });
     return () => unsubscribe();
@@ -29,6 +32,9 @@ function PanelNavigator() {
   return (
     <>
       <Navbar />
+      {userData.isAdmin !== true && userData.restaurantOwner !== true && (
+        <Restaurants />
+      )}
       {userData.isAdmin && <AdminPanel />}
       {userData.restaurantOwner && <RestaurantPanel />}
     </>

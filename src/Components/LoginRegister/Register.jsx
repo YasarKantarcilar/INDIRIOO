@@ -29,7 +29,6 @@ function Register() {
             mail: userCred.user.email,
             uid: userCred.user.uid,
             isAdmin: false,
-            password: password1,
             restaurantOwner: false,
             createDate: new Date(),
           })
