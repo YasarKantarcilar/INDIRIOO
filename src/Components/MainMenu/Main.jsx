@@ -1,16 +1,23 @@
-import Footer from "../Layout/Footer"
-import Navbar from "../Layout/Navbar"
+import { useState } from "react";
+import Footer from "../Layout/Footer";
+import Navbar from "../Layout/Navbar";
 import Restaurants from "./Restaurants";
 import Map from "./Map";
-import { Routes, Route } from "react-router-dom";
+import { QueryContext } from "../../Context/QueryContext";
+import { Container } from "@mui/material";
 function Main() {
+  const [queryData, setQueryData] = useState("DONER");
 
   return (
     <div>
-      <Navbar/>
-      <Map/>
-      <Restaurants/>
-      <Footer/>
+      <Navbar />
+      <QueryContext.Provider value={{ queryData, setQueryData }}>
+        <Container>
+          <Map />
+        </Container>
+        <Restaurants />
+      </QueryContext.Provider>
+      <Footer />
     </div>
   );
 }

@@ -24,6 +24,7 @@ function Restaurant() {
             const subcollectionData = querySnapshot.docs.map((doc) =>
               doc.data()
             );
+
             setMenuData(subcollectionData);
           });
         } else {

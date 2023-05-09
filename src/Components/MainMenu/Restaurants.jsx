@@ -1,5 +1,5 @@
 import { query, where, getDocs } from "firebase/firestore";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Box from "@mui/material/Box";
 import { db } from "../../firebase";
 import { Container, Typography } from "@mui/material";
@@ -7,40 +7,78 @@ import Image from "mui-image";
 import { collection, onSnapshot } from "firebase/firestore";
 import FieldsData from "../FieldsData";
 import { Swiper, SwiperSlide } from "swiper/react";
-
+import { Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/grid";
 import "swiper/css/pagination";
+import { QueryContext } from "../../Context/QueryContext";
+import { getDistance } from "geolib";
 
-import { Pagination } from "swiper";
 export default function Restaurants() {
+  const queryContext = useContext(QueryContext);
+  const queryData = queryContext && queryContext.queryData;
+  const setQueryData = queryContext && queryContext.setQueryData;
+  console.log(queryData);
+  const [currentLocation, setCurrentLocation] = useState({
+    lat: null,
+    lng: null,
+  });
   const [data, setData] = useState([]);
-  const [queryField, setQueryfield] = useState("DONER");
-
-  const colRef = collection(db, "Restaurants");
-  const stateQuery = query(
-    colRef,
-    where("isAccepted", "==", true),
-    where("field", "==", queryField)
-  );
 
   useEffect(() => {
-    const unsubscribe = onSnapshot(
-      stateQuery,
-      (querySnapshot) => {
-        const docs = querySnapshot.docs.map((doc) => [doc.data(), doc.id]);
-        setData(docs);
-        console.log(docs);
-      },
-      (error) => {
-        console.log("Error getting documents: ", error);
-      }
-    );
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setCurrentLocation({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          });
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    } else {
+      console.log("Geolocation is not supported by this browser.");
+    }
+  }, []);
 
-    return () => {
-      unsubscribe();
-    };
-  }, [queryField]);
+  useEffect(() => {
+    if (currentLocation.lat && currentLocation.lng) {
+      const colRef = collection(db, "Restaurants");
+      const stateQuery = query(
+        colRef,
+        where("isAccepted", "==", true),
+        where("field", "==", queryData)
+      );
+
+      getDocs(stateQuery)
+        .then((querySnapshot) => {
+          const docs = [];
+          querySnapshot.forEach((doc) => {
+            if (doc.data().lat && doc.data().lng) {
+              const distance = getDistance(
+                {
+                  latitude: currentLocation.lat,
+                  longitude: currentLocation.lng,
+                },
+                { latitude: doc.data().lat, longitude: doc.data().lng }
+              );
+              console.log(distance);
+              if (distance <= 3000) {
+                // 3km
+                docs.push({ ...doc.data(), id: doc.id });
+              }
+            }
+          });
+          setData(docs);
+        })
+        .catch((error) => {
+          console.log("Error getting documents: ", error);
+        });
+    }
+  }, [currentLocation, queryData]);
+  console.log(data[0]);
   return (
     <Container>
       <Box
@@ -89,7 +127,7 @@ export default function Restaurants() {
                 cursor: "pointer",
               }}
               onClick={() => {
-                setQueryfield(item[0]);
+                setQueryData(item[0]);
               }}
             >
               <Box sx={{ height: "50%", borderRadius: "50%" }}>
@@ -107,7 +145,7 @@ export default function Restaurants() {
           ))}
         </Swiper>
       </Box>
-      <Typography sx={{ my: 3, textAlign: "center" }} variant="h4">
+      <Typography sx={{ textAlign: "center" }} variant="h4">
         BANA EN YAKIN RESTORANLAR
       </Typography>
       <Box
@@ -122,7 +160,7 @@ export default function Restaurants() {
         {data.map((item, idx) => (
           <Box
             onClick={() => {
-              window.location.pathname = `Restaurant/${item[1]}`;
+              window.location.pathname = `Restaurant/${item[idx][1]}`;
             }}
             key={idx}
             component="div"
@@ -144,21 +182,21 @@ export default function Restaurants() {
                   borderTopLeftRadius: "10px",
                   borderTopRightRadius: "10px",
                 }}
-                src={item[0].imgUrl}
+                src={item.imgUrl}
                 width={"100%"}
                 height={"70%"}
               />
             }
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <Typography sx={{ fontWeight: "600" }} variant="p">
-                {item[0].name}
+                {item.name}
               </Typography>
               <Box sx={{ display: "flex", gap: "10px" }}>
                 <Typography
                   sx={{ fontSize: "14px", fontWeight: "300", color: "green" }}
                   variant="p"
                 >
-                  {item[0].field}
+                  {item.field}
                 </Typography>
               </Box>
             </Box>

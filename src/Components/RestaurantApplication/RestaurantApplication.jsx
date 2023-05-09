@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../Layout/Navbar";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { Container, Typography } from "@mui/material";
 import { auth, db, storage } from "../../firebase";
-import { setDoc, doc, collection } from "firebase/firestore";
+import { setDoc, doc, collection, getDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { onAuthStateChanged } from "firebase/auth";
 import { Link } from "react-router-dom";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -15,6 +16,7 @@ import Select from "@mui/material/Select";
 import FieldsData from "../FieldsData";
 
 function RestaurantApplication() {
+  const [isAdmin, setIsAdmin] = useState();
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
   const [taxUnit, setTaxUnit] = useState("");
@@ -68,7 +70,8 @@ function RestaurantApplication() {
 
       setDoc(documentRef, {
         name: name,
-        location: location,
+        lat: parseFloat(location.split(", ")[0]),
+        lng: parseFloat(location.split(", ")[1]),
         taxUnit: taxUnit,
         taxNo: taxNo,
         ownerName: ownerName,
@@ -96,240 +99,270 @@ function RestaurantApplication() {
       settext("LUTFEN BILGILERI EKSIKSIZ DOLDURUNUZ");
     }
   }
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const docRef = doc(db, "users", user.uid);
+        getDoc(docRef).then((doc) => {
+          if (doc.data().isAdmin === true) {
+            setIsAdmin(true);
+          }
+        });
+      }
+    });
+
+    return () => unsubscribe();
+  }, [auth]);
+
   return (
     <>
       <Navbar />
-      <Container
-        sx={{
-          backgroundColor: "white",
-          minHeight: "100vh",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Box
-          component="form"
+      {isAdmin ? (
+        <Container>
+          <Typography
+            variant="h2"
+            sx={{ marginTop: "150px", textAlign: "center" }}
+          >
+            ADMIN OLDUGUNUZ ICIN BASVURU YAPAMAZSINIZ
+          </Typography>
+        </Container>
+      ) : (
+        <Container
           sx={{
             backgroundColor: "white",
-            border: "1px solid black",
-            borderTopRightRadius: "10px",
-            borderTopLeftRadius: "10px",
-            bgColor: "black",
-            mt: 8,
-            width: "600px",
-            height: "700px",
+            minHeight: "100vh",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            flexDirection: "column",
-            "& > :not(style)": { m: 2, p: 0 },
           }}
-          noValidate
-          autoComplete="off"
         >
           <Box
+            component="form"
             sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-around",
-            }}
-          >
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                flexDirection: "column",
-                "& > :not(style)": { m: 1, p: 0 },
-              }}
-            >
-              <TextField
-                value={name}
-                onChange={(e) => {
-                  setName(e.target.value);
-                }}
-                required
-                id="outlined-basic"
-                label="ISLETME ISMI"
-                variant="outlined"
-              />
-
-              <Box sx={{ position: "relative" }}>
-                <Link
-                  style={{ position: "absolute", right: "220px", top: "12px" }}
-                >
-                  ?
-                </Link>
-                <TextField
-                  value={location}
-                  onChange={(e) => setLocation(e.target.value)}
-                  required
-                  id="outlined-basic"
-                  label="ISLETME LAT/LON"
-                  variant="outlined"
-                />
-              </Box>
-
-              <TextField
-                value={taxUnit}
-                onChange={(e) => setTaxUnit(e.target.value)}
-                required
-                id="outlined-basic"
-                label="VERGI DAIRESI"
-                variant="outlined"
-              />
-              <TextField
-                value={tel}
-                onChange={(e) => setTel(e.target.value)}
-                required
-                id="outlined-basic"
-                label="İŞLETME TELEFONU"
-                variant="outlined"
-              />
-              <TextField
-                value={closingTime}
-                onChange={(e) => setClosingTime(e.target.value)}
-                required
-                id="outlined-basic"
-                label="KAPANMA SAATI"
-                variant="outlined"
-              />
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                flexDirection: "column",
-                "& > :not(style)": { m: 1, p: 0 },
-              }}
-            >
-              <TextField
-                value={taxNo}
-                onChange={(e) => setTaxNo(e.target.value)}
-                required
-                id="outlined-basic"
-                label="VERGI NUMARASI"
-                variant="outlined"
-              />
-              <TextField
-                value={ownerName}
-                onChange={(e) => setOwnerName(e.target.value)}
-                required
-                id="outlined-basic"
-                label="YETKILI ISIM"
-                variant="outlined"
-              />
-              <TextField
-                value={ownerTel}
-                onChange={(e) => setOwnerTel(e.target.value)}
-                required
-                id="outlined-basic"
-                label="YETKILI TELEFON"
-                variant="outlined"
-              />
-              <TextField
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-                required
-                id="outlined-basic"
-                label="AÇIK ADRES"
-                variant="outlined"
-              />
-              <TextField
-                value={openingTime}
-                onChange={(e) => setOpeningTime(e.target.value)}
-                required
-                id="outlined-basic"
-                label="AÇILMA SAATI"
-                variant="outlined"
-              />
-            </Box>
-          </Box>
-          <Box sx={{ minWidth: 400 }}>
-            <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">
-                Hangi Sektördesiniz
-              </InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={field}
-                label="Hangi Sektördesiniz"
-                onChange={(e) => {
-                  setField(e.target.value);
-                }}
-              >
-                {FieldsData.map((item, idx) => (
-                  <MenuItem value={item[0]}>{item[1]}</MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Box>
-          <Box
-            sx={{
+              backgroundColor: "white",
+              border: "1px solid black",
+              borderTopRightRadius: "10px",
+              borderTopLeftRadius: "10px",
+              bgColor: "black",
+              mt: 8,
+              width: "600px",
+              height: "700px",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               flexDirection: "column",
+              "& > :not(style)": { m: 2, p: 0 },
             }}
+            noValidate
+            autoComplete="off"
           >
-            <Typography sx={{ textAlign: "center" }}>
-              ISLETME FOTOGRAFI
-            </Typography>
-            <TextField
-              sx={{ width: "425px", height: "35px" }}
-              id="outlined-basic"
-              variant="outlined"
-              type="file"
-              onChange={(e) => {
-                setImgUpload(e.target.files[0]);
-              }}
-            />
-          </Box>
-          <Button
-            sx={{
-              color: "white",
-              width: "105px",
-              height: "50px",
-            }}
-            onClick={(e) => {
-              handleUploadImg(e);
-            }}
-            variant="contained"
-          >
-            YUKLE
-          </Button>
-          {isSubmitting ? (
-            <Button
+            <Box
               sx={{
-                color: "white",
-                width: "210px",
-                height: "70px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-around",
               }}
-              disabled
-              onClick={(e) => handleSubmit(e)}
-              variant="contained"
             >
-              {buttonText}
-            </Button>
-          ) : (
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  flexDirection: "column",
+                  "& > :not(style)": { m: 1, p: 0 },
+                }}
+              >
+                <TextField
+                  value={name}
+                  onChange={(e) => {
+                    setName(e.target.value);
+                  }}
+                  required
+                  id="outlined-basic"
+                  label="ISLETME ISMI"
+                  variant="outlined"
+                />
+
+                <Box sx={{ position: "relative" }}>
+                  <Link
+                    style={{
+                      position: "absolute",
+                      right: "220px",
+                      top: "12px",
+                    }}
+                  >
+                    ?
+                  </Link>
+                  <TextField
+                    value={location}
+                    onChange={(e) => setLocation(e.target.value)}
+                    required
+                    id="outlined-basic"
+                    label="ISLETME LAT/LON"
+                    variant="outlined"
+                  />
+                </Box>
+
+                <TextField
+                  value={taxUnit}
+                  onChange={(e) => setTaxUnit(e.target.value)}
+                  required
+                  id="outlined-basic"
+                  label="VERGI DAIRESI"
+                  variant="outlined"
+                />
+                <TextField
+                  value={tel}
+                  onChange={(e) => setTel(e.target.value)}
+                  required
+                  id="outlined-basic"
+                  label="İŞLETME TELEFONU"
+                  variant="outlined"
+                />
+                <TextField
+                  value={closingTime}
+                  onChange={(e) => setClosingTime(e.target.value)}
+                  required
+                  id="outlined-basic"
+                  label="KAPANMA SAATI"
+                  variant="outlined"
+                />
+              </Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  flexDirection: "column",
+                  "& > :not(style)": { m: 1, p: 0 },
+                }}
+              >
+                <TextField
+                  value={taxNo}
+                  onChange={(e) => setTaxNo(e.target.value)}
+                  required
+                  id="outlined-basic"
+                  label="VERGI NUMARASI"
+                  variant="outlined"
+                />
+                <TextField
+                  value={ownerName}
+                  onChange={(e) => setOwnerName(e.target.value)}
+                  required
+                  id="outlined-basic"
+                  label="YETKILI ISIM"
+                  variant="outlined"
+                />
+                <TextField
+                  value={ownerTel}
+                  onChange={(e) => setOwnerTel(e.target.value)}
+                  required
+                  id="outlined-basic"
+                  label="YETKILI TELEFON"
+                  variant="outlined"
+                />
+                <TextField
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                  required
+                  id="outlined-basic"
+                  label="AÇIK ADRES"
+                  variant="outlined"
+                />
+                <TextField
+                  value={openingTime}
+                  onChange={(e) => setOpeningTime(e.target.value)}
+                  required
+                  id="outlined-basic"
+                  label="AÇILMA SAATI"
+                  variant="outlined"
+                />
+              </Box>
+            </Box>
+            <Box sx={{ minWidth: 400 }}>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">
+                  Hangi Sektördesiniz
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={field}
+                  label="Hangi Sektördesiniz"
+                  onChange={(e) => {
+                    setField(e.target.value);
+                  }}
+                >
+                  {FieldsData.map((item, idx) => (
+                    <MenuItem value={item[0]}>{item[1]}</MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexDirection: "column",
+              }}
+            >
+              <Typography sx={{ textAlign: "center" }}>
+                ISLETME FOTOGRAFI
+              </Typography>
+              <TextField
+                sx={{ width: "425px", height: "35px" }}
+                id="outlined-basic"
+                variant="outlined"
+                type="file"
+                onChange={(e) => {
+                  setImgUpload(e.target.files[0]);
+                }}
+              />
+            </Box>
             <Button
               sx={{
                 color: "white",
-                width: "210px",
+                width: "105px",
                 height: "50px",
               }}
+              onClick={(e) => {
+                handleUploadImg(e);
+              }}
               variant="contained"
-              onClick={(e) => handleSubmit(e)}
             >
-              BASVURU YAP
+              YUKLE
             </Button>
-          )}
-          <Typography>{text}</Typography>
-        </Box>
-      </Container>
+            {isSubmitting ? (
+              <Button
+                sx={{
+                  color: "white",
+                  width: "210px",
+                  height: "70px",
+                }}
+                disabled
+                onClick={(e) => handleSubmit(e)}
+                variant="contained"
+              >
+                {buttonText}
+              </Button>
+            ) : (
+              <Button
+                sx={{
+                  color: "white",
+                  width: "210px",
+                  height: "50px",
+                }}
+                variant="contained"
+                onClick={(e) => handleSubmit(e)}
+              >
+                BASVURU YAP
+              </Button>
+            )}
+            <Typography>{text}</Typography>
+          </Box>
+        </Container>
+      )}
     </>
   );
 }

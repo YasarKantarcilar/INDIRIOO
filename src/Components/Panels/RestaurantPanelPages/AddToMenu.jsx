@@ -84,8 +84,10 @@ function AddToMenu() {
         gap: "20px",
       }}
     >
+      <Typography>MENUYE EKLEME YAP</Typography>
       <TextField
         value={name}
+        sx={{ width: "300px", height: "35px", marginTop: "15px" }}
         onChange={(e) => setname(e.target.value)}
         id="outlined-basic"
         label="Yemek Ismi"
@@ -93,6 +95,7 @@ function AddToMenu() {
       />
       <TextField
         value={description}
+        sx={{ width: "300px", height: "35px", marginTop: "15px" }}
         onChange={(e) => setdescription(e.target.value)}
         id="outlined-basic"
         label="Aciklamasi"
@@ -100,14 +103,15 @@ function AddToMenu() {
       />
       <TextField
         value={price}
+        sx={{ width: "300px", height: "35px", marginTop: "15px" }}
         onChange={(e) => setprice(e.target.value)}
         id="outlined-basic"
         label="Fiyat"
         variant="outlined"
       />
-      <Typography>YEMEK FOTOGRAFI</Typography>
+      <Typography sx={{ marginTop: "15px" }}>YEMEK FOTOGRAFI</Typography>
       <TextField
-        sx={{ width: "425px", height: "35px" }}
+        sx={{ width: "300px", height: "35px" }}
         id="outlined-basic"
         variant="outlined"
         type="file"
@@ -118,8 +122,9 @@ function AddToMenu() {
       <Button
         sx={{
           color: "white",
-          width: "105px",
+          width: "150px",
           height: "50px",
+          marginTop: "25px",
         }}
         onClick={(e) => {
           handleUploadImg(e);
@@ -132,7 +137,7 @@ function AddToMenu() {
         <Button
           sx={{
             color: "white",
-            width: "105px",
+            width: "150px",
             height: "50px",
           }}
           onClick={() => handleSubmit()}

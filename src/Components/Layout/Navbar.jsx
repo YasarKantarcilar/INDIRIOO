@@ -29,6 +29,7 @@ const navItems = [
 ];
 
 function Navbar(props) {
+  const [isAdmin, setIsAdmin] = useState(false);
   const [panel, setPanel] = useState(false);
   console.log(panel);
   useEffect(() => {
@@ -36,12 +37,11 @@ function Navbar(props) {
       if (user) {
         const docRef = doc(db, "users", user.uid);
         getDoc(docRef).then((doc) => {
-          if (
-            doc.data().isAdmin === true ||
-            doc.data().restaurantOwner === true
-          ) {
+          if (doc.data().isAdmin === true) {
             setPanel(true);
-            console.log(panel);
+            setIsAdmin(true);
+          } else if (doc.data().restaurantOwner === true) {
+            setPanel(true);
           }
         });
         setIsLogged(true);
