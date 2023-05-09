@@ -67,8 +67,6 @@ function RestaurantPanel() {
               console.log("Error getting documents: ", error);
             });
         });
-      } else {
-        console.log("NOT LOGGED");
       }
     });
     return () => unsubscribe();

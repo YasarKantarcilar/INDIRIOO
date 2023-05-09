@@ -5,6 +5,7 @@ import { db } from "../../firebase";
 import { collection, onSnapshot } from "firebase/firestore";
 import { getDistance } from "geolib";
 import { QueryContext } from "../../Context/QueryContext";
+import MarkerIcon from "../../Assets/MarkerIcon/MarkerIcon.png";
 
 const containerStyle = {
   marginTop: "100px",
@@ -18,6 +19,7 @@ const options = {
 };
 
 function MyMap() {
+  const [isLoaded, setIsLoaded] = useState(false);
   const queryContext = useContext(QueryContext);
   const queryData = queryContext && queryContext.queryData;
   const setQueryData = queryContext && queryContext.setQueryData;
@@ -67,7 +69,6 @@ function MyMap() {
                 },
                 { latitude: doc.data().lat, longitude: doc.data().lng }
               );
-              console.log(distance);
               if (distance <= 3000) {
                 // 3km
                 docs.push({ ...doc.data(), id: doc.id });
@@ -81,19 +82,34 @@ function MyMap() {
         });
     }
   }, [currentLocation, queryData]);
-  console.log(data);
 
   return (
-    <LoadScript googleMapsApiKey={process.env.REACT_APP_API_KEY}>
+    <LoadScript
+      googleMapsApiKey={process.env.REACT_APP_API_KEY}
+      onLoad={() => {
+        setIsLoaded(true);
+      }}
+    >
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={currentLocation}
         zoom={15}
         options={options}
       >
-        <Marker position={currentLocation} />
+        {isLoaded && (
+          <Marker
+            position={currentLocation}
+            icon={{
+              url: MarkerIcon,
+              scaledSize: new window.google.maps.Size(40, 40),
+            }}
+          />
+        )}
         {data.map((restaurant, idx) => (
           <Marker
+            onClick={() => {
+              window.location.pathname = `/Restaurant/${restaurant.id}`;
+            }}
             key={idx}
             position={{ lat: restaurant.lat, lng: restaurant.lng }}
           />

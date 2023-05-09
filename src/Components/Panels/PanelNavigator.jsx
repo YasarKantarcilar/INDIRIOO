@@ -11,7 +11,6 @@ import Restaurants from "../MainMenu/Restaurants";
 
 function PanelNavigator() {
   const [userData, setUserData] = useState([]);
-  console.log(userData);
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -20,7 +19,6 @@ function PanelNavigator() {
           setUserData(doc.data());
         });
       } else {
-        console.log("NOT LOGGED");
         window.location.pathname = "/";
       }
     });

@@ -38,8 +38,6 @@ function Register() {
             .catch((error) => console.error("Error writing document: ", error));
         })
         .catch((error) => console.log(error.message));
-    } else {
-      console.log("PASSWORDS DOESNT MATCH");
     }
   };
 

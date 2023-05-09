@@ -7,7 +7,6 @@ import { auth } from "./firebase";
 import Restaurant from "./Components/Restaurant/Restaurant";
 import PanelNavigator from "./Components/Panels/PanelNavigator";
 function App() {
-  console.log(auth.currentUser);
   return (
     <div>
       <Routes>

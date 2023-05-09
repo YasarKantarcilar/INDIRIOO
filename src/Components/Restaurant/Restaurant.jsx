@@ -7,6 +7,7 @@ import Navbar from "../Layout/Navbar";
 import { doc, getDoc, collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase";
 import Map from "../MainMenu/Map";
+import MarkerIcon from "../../Assets/MarkerIcon/MarkerIcon.png";
 
 function Restaurant() {
   const [currentLocation, setCurrentLocation] = useState({
@@ -14,8 +15,9 @@ function Restaurant() {
     lng: null,
   });
   const params = useParams();
-  const [data, setData] = useState([]);
+  const [data, setData] = useState({ imgUrl: "" });
   const [menuData, setMenuData] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -59,7 +61,6 @@ function Restaurant() {
         console.log("Error getting document:", error);
       });
   }, []);
-  console.log(data);
   return (
     <>
       <Navbar />
@@ -76,24 +77,37 @@ function Restaurant() {
           }}
         >
           <Box sx={{ width: { xs: "100%", s: "49%" } }}>
-            <LoadScript googleMapsApiKey={process.env.REACT_APP_API_KEY}>
-              <GoogleMap
-                mapContainerStyle={{ width: "100%", height: "100%" }}
-                center={{ lat: data.lat, lng: data.lng }}
-                zoom={18}
-                options={{
-                  disableDefaultUI: true,
-                  zoomControl: true,
-                }}
-              >
-                <Marker position={{ lat: data.lat, lng: data.lng }} />
-                <Marker
-                  position={{
-                    lat: currentLocation.lat,
-                    lng: currentLocation.lng,
+            <LoadScript
+              googleMapsApiKey={process.env.REACT_APP_API_KEY}
+              onLoad={() => {
+                setIsLoaded(true);
+              }}
+            >
+              {data.lat && data.lng && (
+                <GoogleMap
+                  mapContainerStyle={{ width: "100%", height: "100%" }}
+                  center={{ lat: data.lat, lng: data.lng }}
+                  zoom={18}
+                  options={{
+                    disableDefaultUI: true,
+                    zoomControl: true,
                   }}
-                />
-              </GoogleMap>
+                >
+                  {isLoaded && (
+                    <Marker
+                      icon={{
+                        url: MarkerIcon,
+                        scaledSize: new window.google.maps.Size(40, 40),
+                      }}
+                      position={{
+                        lat: currentLocation.lat,
+                        lng: currentLocation.lng,
+                      }}
+                    />
+                  )}
+                  <Marker position={{ lat: data.lat, lng: data.lng }} />
+                </GoogleMap>
+              )}
             </LoadScript>
           </Box>
           <Box

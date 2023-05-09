@@ -18,7 +18,6 @@ export default function Restaurants() {
   const queryContext = useContext(QueryContext);
   const queryData = queryContext && queryContext.queryData;
   const setQueryData = queryContext && queryContext.setQueryData;
-  console.log(queryData);
   const [currentLocation, setCurrentLocation] = useState({
     lat: null,
     lng: null,
@@ -64,7 +63,6 @@ export default function Restaurants() {
                 },
                 { latitude: doc.data().lat, longitude: doc.data().lng }
               );
-              console.log(distance);
               if (distance <= 3000) {
                 // 3km
                 docs.push({ ...doc.data(), id: doc.id });
@@ -78,7 +76,6 @@ export default function Restaurants() {
         });
     }
   }, [currentLocation, queryData]);
-  console.log(data[0]);
   return (
     <Container>
       <Box

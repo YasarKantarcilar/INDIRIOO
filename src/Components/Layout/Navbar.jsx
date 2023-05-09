@@ -31,7 +31,6 @@ const navItems = [
 function Navbar(props) {
   const [isAdmin, setIsAdmin] = useState(false);
   const [panel, setPanel] = useState(false);
-  console.log(panel);
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -46,7 +45,6 @@ function Navbar(props) {
         });
         setIsLogged(true);
       } else {
-        console.log("NOT LOGGED");
         setIsLogged(false);
         setPanel(false);
       }
