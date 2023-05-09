@@ -160,7 +160,7 @@ export default function Restaurants() {
         {data.map((item, idx) => (
           <Box
             onClick={() => {
-              window.location.pathname = `Restaurant/${item[idx][1]}`;
+              window.location.pathname = `Restaurant/${item.id}`;
             }}
             key={idx}
             component="div"

@@ -1,15 +1,39 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Container, Box, Typography, Button } from "@mui/material";
+import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import Image from "mui-image";
 import Navbar from "../Layout/Navbar";
 import { doc, getDoc, collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase";
+import Map from "../MainMenu/Map";
 
 function Restaurant() {
+  const [currentLocation, setCurrentLocation] = useState({
+    lat: null,
+    lng: null,
+  });
   const params = useParams();
   const [data, setData] = useState([]);
   const [menuData, setMenuData] = useState([]);
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setCurrentLocation({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          });
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    } else {
+      console.log("Geolocation is not supported by this browser.");
+    }
+  }, []);
   useEffect(() => {
     const documentRef = doc(db, "Restaurants", params.id);
 
@@ -52,11 +76,25 @@ function Restaurant() {
           }}
         >
           <Box sx={{ width: { xs: "100%", s: "49%" } }}>
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1503.2045807071834!2d29.025776008001202!3d41.10375432332514!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab5e8e292693d%3A0xf77b90dec6392e12!2sIstanbul%20Technical%20University%20-%20Mineral%20Processing%20Eng.%20Dept.%20-%20Surface%20Chemistry%20Research%20Group!5e0!3m2!1str!2str!4v1680777808117!5m2!1str!2str"
-              width="100%"
-              height="450"
-            ></iframe>
+            <LoadScript googleMapsApiKey={process.env.REACT_APP_API_KEY}>
+              <GoogleMap
+                mapContainerStyle={{ width: "100%", height: "100%" }}
+                center={{ lat: data.lat, lng: data.lng }}
+                zoom={18}
+                options={{
+                  disableDefaultUI: true,
+                  zoomControl: true,
+                }}
+              >
+                <Marker position={{ lat: data.lat, lng: data.lng }} />
+                <Marker
+                  position={{
+                    lat: currentLocation.lat,
+                    lng: currentLocation.lng,
+                  }}
+                />
+              </GoogleMap>
+            </LoadScript>
           </Box>
           <Box
             sx={{
