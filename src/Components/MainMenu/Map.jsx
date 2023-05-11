@@ -93,7 +93,7 @@ function MyMap() {
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={currentLocation}
-        zoom={15}
+        zoom={16}
         options={options}
       >
         {isLoaded && (

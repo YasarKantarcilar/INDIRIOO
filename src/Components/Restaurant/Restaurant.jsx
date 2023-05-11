@@ -76,7 +76,7 @@ function Restaurant() {
             justifyContent: "space-between",
           }}
         >
-          <Box sx={{ width: { xs: "100%", s: "49%" } }}>
+          <Box sx={{ width: { xs: "100%", s: "49%" }, height: "450px" }}>
             <LoadScript
               googleMapsApiKey={process.env.REACT_APP_API_KEY}
               onLoad={() => {
@@ -245,7 +245,7 @@ function Restaurant() {
                 }}
                 variant="P"
               >
-                {item.name}
+                INDIRIOO: {item.name}
               </Typography>
 
               <Box
@@ -277,7 +277,22 @@ function Restaurant() {
                 }}
               >
                 <Typography
-                  sx={{ textAlign: "center", width: "100%" }}
+                  sx={{
+                    textAlign: "center",
+                    width: "100%",
+                    textDecoration: "line-through",
+                  }}
+                  variant="p"
+                >
+                  {item.oldPrice}₺
+                </Typography>
+                <Typography
+                  sx={{
+                    textAlign: "center",
+                    width: "100%",
+                    color: "orange",
+                    fontWeight: "700",
+                  }}
                   variant="p"
                 >
                   {item.price}₺

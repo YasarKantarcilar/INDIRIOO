@@ -12,14 +12,13 @@ import AddIcon from "@mui/icons-material/Add";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import DeleteFromMenu from "./RestaurantPanelPages/DeleteFromMenu";
+import { useParams } from "react-router-dom";
+import Navbar from "../Layout/Navbar";
 
 function RestaurantPanel() {
+  const params = useParams();
+  console.log(params.id);
   const sidebarItems = [
-    {
-      name: "RESTORAN SAYFASI",
-      pageNumber: 1,
-      icon: <HomeSharpIcon sx={{ width: "30px", height: "30px" }} />,
-    },
     {
       name: "MENUYE EKLEME YAP",
       pageNumber: 2,
@@ -45,16 +44,35 @@ function RestaurantPanel() {
   const [restaurantInfo, setRestaurantInfo] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
 
-  const colRef = collection(db, "Restaurants");
-  const documentRef = doc(colRef, auth.currentUser.uid);
-  const menuRef = collection(documentRef, "Menu");
-
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
+      if (!params.id && user) {
+        const colRef = collection(db, "Restaurants");
+        const documentRef = doc(colRef, auth.currentUser.uid);
+        const menuRef = collection(documentRef, "Menu");
         const docRef = doc(db, "Restaurants", user.uid);
-        getDoc(docRef).then((cred) => {
+        getDoc(documentRef).then((cred) => {
           setRestaurantInfo(cred.data());
+          const menuArr = [];
+          getDocs(menuRef)
+            .then((querySnapshot) => {
+              querySnapshot.forEach((doc) => {
+                menuArr.push([doc.data(), doc.id]);
+              });
+              setMenu(menuArr);
+            })
+            .catch((error) => {
+              console.log("Error getting documents: ", error);
+            });
+        });
+      } else if (params && user) {
+        const colRef = collection(db, "Restaurants");
+        const documentRef = doc(colRef, params.id);
+        const menuRef = collection(documentRef, "Menu");
+        const docRef = doc(db, "Restaurants", params.id);
+        getDoc(documentRef).then((cred) => {
+          setRestaurantInfo(cred.data());
+          console.log(cred.data());
           const menuArr = [];
           getDocs(menuRef)
             .then((querySnapshot) => {
@@ -71,42 +89,46 @@ function RestaurantPanel() {
     });
     return () => unsubscribe();
   }, [auth]);
+  console.log(menu);
   return (
-    <Container sx={{ marginTop: "64px", minHeight: "100vh" }}>
-      <Box
-        sx={{
-          display: "flex",
-          position: "fixed",
-
-          flexDirection: "column",
-          left: "0",
-          boxShadow: "rgba(0, 0, 0, 0.35) 0px -50px 36px -28px inset",
-          width: { xs: "30vw", sm: "20vw" },
-          height: "100vh",
-          paddingTop: "64px",
-          backgroundColor: "#FA4A0C",
-        }}
-      >
-        <Box sx={{ width: { xs: "30vw", sm: "20vw" }, height: "30%" }}>
-          <Typography
-            variant="h5"
-            sx={{ width: "100%", textAlign: "center", color: "white" }}
-          >
-            {restaurantInfo.name}
-          </Typography>
-        </Box>
+    <>
+      {params && <Navbar />}
+      <Container sx={{ marginTop: "64px", minHeight: "100vh" }}>
         <Box
           sx={{
             display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
+            position: "fixed",
+
             flexDirection: "column",
-            gap: "30px",
+            left: "0",
+            boxShadow: "rgba(0, 0, 0, 0.35) 0px -50px 36px -28px inset",
+            width: { xs: "30vw", sm: "20vw" },
+            height: "100vh",
+            paddingTop: "64px",
+            backgroundColor: "#FA4A0C",
           }}
         >
-          {sidebarItems.map((item, idx) => (
+          <Box sx={{ width: { xs: "30vw", sm: "20vw" }, height: "30%" }}>
+            <Typography
+              variant="h5"
+              sx={{ width: "100%", textAlign: "center", color: "white" }}
+            >
+              {restaurantInfo.name}
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexDirection: "column",
+              gap: "30px",
+            }}
+          >
             <Box
-              key={idx}
+              onClick={() => {
+                window.location.pathname = `/Restaurant/${restaurantInfo.createdBy}`;
+              }}
               sx={{
                 paddingLeft: "10px",
                 width: { xs: "30vw", sm: "20vw" },
@@ -122,7 +144,6 @@ function RestaurantPanel() {
                   color: "black",
                 },
               }}
-              onClick={(e) => setPageNumber(item.pageNumber)}
             >
               <Box
                 sx={{
@@ -132,30 +153,67 @@ function RestaurantPanel() {
                   justifyContent: "center",
                 }}
               >
-                {item.icon}
+                <HomeSharpIcon sx={{ width: "30px", height: "30px" }} />
               </Box>
               <Typography
                 sx={{ fontSize: "20px", marginLeft: "5px", width: "80%" }}
               >
-                {item.name}
+                RESTORAN SAYFASI
               </Typography>
             </Box>
-          ))}
+            {sidebarItems.map((item, idx) => (
+              <Box
+                key={idx}
+                sx={{
+                  paddingLeft: "10px",
+                  width: { xs: "30vw", sm: "20vw" },
+                  height: "35px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-around",
+                  transition: "0.5s",
+                  color: "white",
+                  cursor: "pointer",
+                  "&:hover": {
+                    backgroundColor: "white",
+                    color: "black",
+                  },
+                }}
+                onClick={(e) => setPageNumber(item.pageNumber)}
+              >
+                <Box
+                  sx={{
+                    width: "35px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  {item.icon}
+                </Box>
+                <Typography
+                  sx={{ fontSize: "20px", marginLeft: "5px", width: "80%" }}
+                >
+                  {item.name}
+                </Typography>
+              </Box>
+            ))}
+          </Box>
         </Box>
-      </Box>
-      <Box
-        sx={{
-          width: { xs: "70vw", sm: "80vw" },
-          height: "100vh",
-          paddingTop: "64px",
-          position: "absolute",
-          right: 0,
-        }}
-      >
-        {pageNumber === 2 && <AddToMenu />}
-        {pageNumber === 3 && <DeleteFromMenu />}
-      </Box>
-    </Container>
+        <Box
+          sx={{
+            width: { xs: "70vw", sm: "80vw" },
+            height: "100vh",
+            paddingTop: "64px",
+            position: "absolute",
+            right: 0,
+          }}
+        >
+          {pageNumber === 2 && <AddToMenu params={params.id} />}
+          {pageNumber === 3 && <DeleteFromMenu params={params.id} />}
+        </Box>
+      </Container>
+    </>
   );
 }
 

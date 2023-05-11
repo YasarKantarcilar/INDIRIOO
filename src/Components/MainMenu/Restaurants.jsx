@@ -96,19 +96,19 @@ export default function Restaurants() {
           }} */
           breakpoints={{
             "@0.00": {
-              slidesPerView: 7.5,
+              slidesPerView: 4.5,
               spaceBetween: 10,
             },
             "@0.75": {
-              slidesPerView: 7.5,
+              slidesPerView: 4.5,
               spaceBetween: 10,
             },
             "@1.00": {
-              slidesPerView: 7.5,
+              slidesPerView: 4.5,
               spaceBetween: 10,
             },
             "@1.50": {
-              slidesPerView: 7.5,
+              slidesPerView: 4.5,
               spaceBetween: 10,
             },
           }}

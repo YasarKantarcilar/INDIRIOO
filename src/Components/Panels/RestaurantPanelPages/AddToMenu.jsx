@@ -7,48 +7,91 @@ import { Button } from "@mui/material";
 import { collection, doc, setDoc } from "firebase/firestore";
 import { storage } from "../../../firebase";
 
-function AddToMenu() {
+function AddToMenu(props) {
   const [imgUpload, setImgUpload] = useState(null);
   const [imgUrl, setImgUrl] = useState(null);
   const [name, setname] = useState("");
   const [description, setdescription] = useState("");
   const [price, setprice] = useState("");
+  const [oldPrice, setOldPrice] = useState("");
   const [text, setText] = useState("");
-  const colRef = collection(db, "Restaurants");
-  const documentRef = doc(colRef, auth.currentUser.uid);
-  const menuRef = collection(documentRef, "Menu");
+  const [fetchInfo, setFetchInfo] = useState("");
 
   function handleSubmit() {
-    if (
-      name !== "" &&
-      description !== "" &&
-      price !== "" &&
-      imgUrl !== null &&
-      imgUpload !== null
-    ) {
-      setDoc(doc(menuRef), {
-        name: name,
-        description: description,
-        price: price,
-        imgUrl: imgUrl,
-        date: new Date(),
-      })
-        .then(() => {
-          console.log("DOC WRITTEN");
-          setname("");
-          setImgUrl(null);
-          setprice("");
-          setdescription("");
-          setImgUpload(null);
-          setImgUrl(null);
-          setText("YEMEK BASARIYLA MENUYE EKLENMISTIR");
-          setTimeout(() => {
-            setText("");
-          }, 2000);
+    if (props.params) {
+      const colRef = collection(db, "Restaurants");
+      const documentRef = doc(colRef, props.params);
+      const menuRef = collection(documentRef, "Menu");
+      if (
+        name !== "" &&
+        description !== "" &&
+        price !== "" &&
+        imgUrl !== null &&
+        imgUpload !== null
+      ) {
+        setDoc(doc(menuRef), {
+          name: name,
+          description: description,
+          price: price,
+          imgUrl: imgUrl,
+          date: new Date(),
         })
-        .catch((err) => console.log("ERROR", err));
-    } else {
-      setText("LUTFEN BILGILERI EKSIKSIZ GIRINIZ VEYA FOTOGRAFI DEGISTIRINIZ");
+          .then(() => {
+            console.log("DOC WRITTEN");
+            setname("");
+            setImgUrl(null);
+            setprice("");
+            setdescription("");
+            setImgUpload(null);
+            setImgUrl(null);
+            setText("YEMEK BASARIYLA MENUYE EKLENMISTIR");
+            setTimeout(() => {
+              setText("");
+            }, 2000);
+          })
+          .catch((err) => console.log("ERROR", err));
+      } else {
+        setText(
+          "LUTFEN BILGILERI EKSIKSIZ GIRINIZ VEYA FOTOGRAFI DEGISTIRINIZ"
+        );
+      }
+    } else if (!props.params) {
+      const colRef = collection(db, "Restaurants");
+      const documentRef = doc(colRef, auth.currentUser.uid);
+      const menuRef = collection(documentRef, "Menu");
+      if (
+        name !== "" &&
+        description !== "" &&
+        price !== "" &&
+        imgUrl !== null &&
+        imgUpload !== null
+      ) {
+        setDoc(doc(menuRef), {
+          name: name,
+          description: description,
+          price: price,
+          imgUrl: imgUrl,
+          date: new Date(),
+        })
+          .then(() => {
+            console.log("DOC WRITTEN");
+            setname("");
+            setImgUrl(null);
+            setprice("");
+            setdescription("");
+            setImgUpload(null);
+            setImgUrl(null);
+            setText("YEMEK BASARIYLA MENUYE EKLENMISTIR");
+            setTimeout(() => {
+              setText("");
+            }, 2000);
+          })
+          .catch((err) => console.log("ERROR", err));
+      } else {
+        setText(
+          "LUTFEN BILGILERI EKSIKSIZ GIRINIZ VEYA FOTOGRAFI DEGISTIRINIZ"
+        );
+      }
     }
   }
   useEffect(() => {
@@ -63,16 +106,29 @@ function AddToMenu() {
     return () => unsubscribe();
   }, [auth]);
   function handleUploadImg(e) {
-    if (imgUpload == null) return;
-    const imageRef = ref(
-      storage,
-      `Restaurant/${auth.currentUser.uid}/${imgUpload.name + new Date()}`
-    );
-    uploadBytes(imageRef, imgUpload).then((snapshot) => {
-      getDownloadURL(snapshot.ref).then((url) => {
-        setImgUrl(url);
+    if (!props.params) {
+      if (imgUpload == null) return;
+      const imageRef = ref(
+        storage,
+        `Restaurant/${auth.currentUser.uid}/${imgUpload.name + new Date()}`
+      );
+      uploadBytes(imageRef, imgUpload).then((snapshot) => {
+        getDownloadURL(snapshot.ref).then((url) => {
+          setImgUrl(url);
+        });
       });
-    });
+    } else if (props.params) {
+      if (imgUpload == null) return;
+      const imageRef = ref(
+        storage,
+        `Restaurant/${props.params}/${imgUpload.name + new Date()}`
+      );
+      uploadBytes(imageRef, imgUpload).then((snapshot) => {
+        getDownloadURL(snapshot.ref).then((url) => {
+          setImgUrl(url);
+        });
+      });
+    }
   }
   return (
     <Box
@@ -99,6 +155,14 @@ function AddToMenu() {
         onChange={(e) => setdescription(e.target.value)}
         id="outlined-basic"
         label="Aciklamasi"
+        variant="outlined"
+      />
+      <TextField
+        value={oldPrice}
+        sx={{ width: "300px", height: "35px", marginTop: "15px" }}
+        onChange={(e) => setOldPrice(e.target.value)}
+        id="outlined-basic"
+        label="Eski Fiyat"
         variant="outlined"
       />
       <TextField

@@ -6,6 +6,7 @@ import { Routes, Route } from "react-router-dom";
 import { auth } from "./firebase";
 import Restaurant from "./Components/Restaurant/Restaurant";
 import PanelNavigator from "./Components/Panels/PanelNavigator";
+import RestaurantPanel from "./Components/Panels/RestaurantPanel";
 function App() {
   return (
     <div>
@@ -16,6 +17,7 @@ function App() {
         <Route path="/Register" element={<Register />} />
         <Route path="/Panel" element={<PanelNavigator />} />
         <Route path="/Restaurant/:id" element={<Restaurant />} />
+        <Route path="/Panel/:id" element={<RestaurantPanel />} />
         <Route
           path="/RestaurantApplication"
           element={<RestaurantApplication />}

@@ -60,7 +60,7 @@ function Login() {
             onChange={(e) => {
               setEmail(e.target.value);
             }}
-            id="outlined-basic"
+            id="outlined-basics"
             label="Email"
             variant="outlined"
           />

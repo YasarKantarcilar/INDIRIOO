@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, Container } from "@mui/material";
+import { Box, Button, Container } from "@mui/material";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -54,6 +54,7 @@ function AdminPanelRestaurants() {
               <TableCell align="right">SAHIBININ ISMI</TableCell>
               <TableCell align="right">VERGI NUMARASI</TableCell>
               <TableCell align="right">VERGI DAIRESI</TableCell>
+              <TableCell align="right"></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -79,6 +80,17 @@ function AdminPanelRestaurants() {
                 </TableCell>
                 <TableCell align="right" component="th" scope="row">
                   {row.taxUnit}
+                </TableCell>
+                <TableCell align="right" component="th" scope="row">
+                  <Button
+                    variant="contained"
+                    sx={{ color: "white" }}
+                    onClick={() => {
+                      window.location.pathname = `/Panel/${row.createdBy}`;
+                    }}
+                  >
+                    YONET
+                  </Button>
                 </TableCell>
               </TableRow>
             ))}

@@ -8,6 +8,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
+import Button from "@mui/material/Button";
 import { onSnapshot, collection } from "firebase/firestore";
 import { db } from "../../../firebase";
 
@@ -48,6 +49,7 @@ function Users() {
               <TableCell>E-POSTA</TableCell>
               <TableCell align="right">SIFRE</TableCell>
               <TableCell align="right">RESTORAN SAHIPLIK DURUMU</TableCell>
+              <TableCell align="right">BANLA</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -62,6 +64,11 @@ function Users() {
                 <TableCell align="right">{row.password}</TableCell>
                 <TableCell align="right">
                   {row.restaurantOwner ? "EVET" : "HAYIR"}
+                </TableCell>
+                <TableCell align="right">
+                  <Button variant="contained" sx={{ color: "white" }}>
+                    BANLA
+                  </Button>
                 </TableCell>
               </TableRow>
             ))}
