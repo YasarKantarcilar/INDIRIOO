@@ -46,45 +46,74 @@ function RestaurantPanel() {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (!params.id && user) {
-        const colRef = collection(db, "Restaurants");
+      if (user) {
+        const colRef = collection(db, "users");
         const documentRef = doc(colRef, auth.currentUser.uid);
-        const menuRef = collection(documentRef, "Menu");
-        const docRef = doc(db, "Restaurants", user.uid);
-        getDoc(documentRef).then((cred) => {
-          setRestaurantInfo(cred.data());
-          const menuArr = [];
-          getDocs(menuRef)
-            .then((querySnapshot) => {
-              querySnapshot.forEach((doc) => {
-                menuArr.push([doc.data(), doc.id]);
-              });
-              setMenu(menuArr);
-            })
-            .catch((error) => {
-              console.log("Error getting documents: ", error);
-            });
-        });
-      } else if (params && user) {
-        const colRef = collection(db, "Restaurants");
-        const documentRef = doc(colRef, params.id);
-        const menuRef = collection(documentRef, "Menu");
-        const docRef = doc(db, "Restaurants", params.id);
-        getDoc(documentRef).then((cred) => {
-          setRestaurantInfo(cred.data());
-          console.log(cred.data());
-          const menuArr = [];
-          getDocs(menuRef)
-            .then((querySnapshot) => {
-              querySnapshot.forEach((doc) => {
-                menuArr.push([doc.data(), doc.id]);
-              });
-              setMenu(menuArr);
-            })
-            .catch((error) => {
-              console.log("Error getting documents: ", error);
-            });
-        });
+        getDoc(documentRef)
+          .then((cred) => {
+            console.log(cred.data());
+            if (
+              cred.data().isAdmin ||
+              cred.data().uid === params.id ||
+              (cred.data().restaurantOwner && !params.id)
+            ) {
+              if (!params.id && user) {
+                const colRef = collection(db, "Restaurants");
+                const documentRef = doc(colRef, auth.currentUser.uid);
+                const menuRef = collection(documentRef, "Menu");
+                const docRef = doc(db, "Restaurants", user.uid);
+                getDoc(documentRef)
+                  .then((cred) => {
+                    setRestaurantInfo(cred.data());
+                    const menuArr = [];
+                    getDocs(menuRef)
+                      .then((querySnapshot) => {
+                        querySnapshot.forEach((doc) => {
+                          menuArr.push([doc.data(), doc.id]);
+                        });
+                        setMenu(menuArr);
+                      })
+                      .catch((error) => {
+                        console.log("Error getting documents: ", error);
+                      });
+                  })
+                  .catch(() => {
+                    window.location.pathname = "/";
+                  });
+              } else if (params && user) {
+                const colRef = collection(db, "Restaurants");
+                const documentRef = doc(colRef, params.id);
+                const menuRef = collection(documentRef, "Menu");
+                const docRef = doc(db, "Restaurants", params.id);
+                getDoc(documentRef)
+                  .then((cred) => {
+                    setRestaurantInfo(cred.data());
+                    console.log(cred.data());
+                    const menuArr = [];
+                    getDocs(menuRef)
+                      .then((querySnapshot) => {
+                        querySnapshot.forEach((doc) => {
+                          menuArr.push([doc.data(), doc.id]);
+                        });
+                        setMenu(menuArr);
+                      })
+                      .catch((error) => {
+                        console.log("Error getting documents: ", error);
+                      });
+                  })
+                  .catch(() => {
+                    window.location.pathname = "/";
+                  });
+              }
+            } else {
+              window.location.pathname = "/";
+            }
+          })
+          .catch(() => {
+            window.location.pathname = "/";
+          });
+      } else {
+        window.location.pathname = "/";
       }
     });
     return () => unsubscribe();
