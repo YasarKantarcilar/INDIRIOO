@@ -34,6 +34,9 @@ function AddToMenu(props) {
           description: description,
           price: price,
           imgUrl: imgUrl,
+          oldPrice: oldPrice,
+
+          superDiscount: false,
           date: new Date(),
         })
           .then(() => {
@@ -71,6 +74,8 @@ function AddToMenu(props) {
           description: description,
           price: price,
           imgUrl: imgUrl,
+          oldPrice: oldPrice,
+          superDiscount: false,
           date: new Date(),
         })
           .then(() => {

@@ -18,6 +18,7 @@ export default function Restaurants() {
   const queryContext = useContext(QueryContext);
   const queryData = queryContext && queryContext.queryData;
   const setQueryData = queryContext && queryContext.setQueryData;
+  const [header, setHeader] = useState("YAKIN RESTORANLAR");
   const [currentLocation, setCurrentLocation] = useState({
     lat: null,
     lng: null,
@@ -66,6 +67,13 @@ export default function Restaurants() {
               if (distance <= 3000) {
                 // 3km
                 docs.push({ ...doc.data(), id: doc.id });
+              } else {
+                if (docs[0] === undefined) {
+                  setHeader("UZAK RESTORANLAR");
+                  docs.push({ ...doc.data(), id: doc.id });
+                } else {
+                  setHeader("YAKIN RESTORANLAR");
+                }
               }
             }
           });
@@ -96,19 +104,19 @@ export default function Restaurants() {
           }} */
           breakpoints={{
             "@0.00": {
-              slidesPerView: 4.5,
+              slidesPerView: 7.5,
               spaceBetween: 10,
             },
             "@0.75": {
-              slidesPerView: 4.5,
+              slidesPerView: 7.5,
               spaceBetween: 10,
             },
             "@1.00": {
-              slidesPerView: 4.5,
+              slidesPerView: 7.5,
               spaceBetween: 10,
             },
             "@1.50": {
-              slidesPerView: 4.5,
+              slidesPerView: 7.5,
               spaceBetween: 10,
             },
           }}
@@ -143,7 +151,7 @@ export default function Restaurants() {
         </Swiper>
       </Box>
       <Typography sx={{ textAlign: "center" }} variant="h4">
-        BANA EN YAKIN RESTORANLAR
+        {header}
       </Typography>
       <Box
         sx={{

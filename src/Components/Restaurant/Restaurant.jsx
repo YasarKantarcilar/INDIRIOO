@@ -18,6 +18,7 @@ function Restaurant() {
   const [data, setData] = useState({ imgUrl: "" });
   const [menuData, setMenuData] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [superMenu, setSuperMenu] = useState();
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -47,11 +48,16 @@ function Restaurant() {
 
           const subcollectionRef = collection(documentRef, "Menu");
           getDocs(subcollectionRef).then((querySnapshot) => {
-            const subcollectionData = querySnapshot.docs.map((doc) =>
-              doc.data()
-            );
+            const menuDataArr = [];
+            querySnapshot.docs.forEach((doc) => {
+              if (doc.data().superDiscount) {
+                setSuperMenu(doc.data());
+              } else {
+                menuDataArr.push(doc.data());
+              }
+            });
 
-            setMenuData(subcollectionData);
+            setMenuData(menuDataArr);
           });
         } else {
           window.location.pathname = "/";
@@ -61,6 +67,8 @@ function Restaurant() {
         console.log("Error getting document:", error);
       });
   }, []);
+  console.log(menuData);
+  console.log(superMenu);
   return (
     <>
       <Navbar />
@@ -222,6 +230,84 @@ function Restaurant() {
             gap: "5px",
           }}
         >
+          {superMenu && (
+            <Box
+              sx={{
+                p: 0,
+                minHeight: 200,
+                maxHeight: 350,
+                my: 1,
+                border: "2px solid #FA4A0C",
+                width: { xs: "32%", sm: "24", md: "19%" },
+                boxShadow: "rgba(0, 0, 0, 0.1) 0px 4px 12px",
+              }}
+            >
+              <Image src={superMenu.imgUrl} width={"100%"} height={"60%"} />
+              <Typography
+                sx={{
+                  color: "orange",
+                  height: "10%",
+                  overflow: "hidden",
+                  display: "block",
+                  textAlign: "center",
+                }}
+                variant="P"
+              >
+                INDIRIOO: {superMenu.name}
+              </Typography>
+
+              <Box
+                sx={{
+                  mx: "5%",
+                  width: "90%",
+                  overflow: "hidden",
+                  height: "20%",
+                }}
+              >
+                <Typography
+                  sx={{
+                    overflow: "hidden",
+                    color: "#FA4A0C",
+                    textAlign: "center",
+                    wordWrap: "break-word",
+                  }}
+                  variant="p"
+                >
+                  SUPER INDIRIMLI MENU
+                </Typography>
+              </Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  height: "10%",
+                }}
+              >
+                <Typography
+                  sx={{
+                    textAlign: "center",
+                    width: "100%",
+                    textDecoration: "line-through",
+                  }}
+                  variant="p"
+                >
+                  {superMenu.oldPrice}₺
+                </Typography>
+                <Typography
+                  sx={{
+                    textAlign: "center",
+                    width: "100%",
+                    color: "orange",
+                    fontWeight: "700",
+                  }}
+                  variant="p"
+                >
+                  {superMenu.price}₺
+                </Typography>
+              </Box>
+            </Box>
+          )}
           {menuData.map((item, idx) => (
             <Box
               key={idx}
@@ -276,16 +362,18 @@ function Restaurant() {
                   height: "10%",
                 }}
               >
-                <Typography
-                  sx={{
-                    textAlign: "center",
-                    width: "100%",
-                    textDecoration: "line-through",
-                  }}
-                  variant="p"
-                >
-                  {item.oldPrice}₺
-                </Typography>
+                {parseInt(item.price) < parseInt(item.oldPrice) && (
+                  <Typography
+                    sx={{
+                      textAlign: "center",
+                      width: "100%",
+                      textDecoration: "line-through",
+                    }}
+                    variant="p"
+                  >
+                    {item.oldPrice}₺
+                  </Typography>
+                )}
                 <Typography
                   sx={{
                     textAlign: "center",

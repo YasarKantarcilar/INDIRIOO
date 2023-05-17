@@ -8,7 +8,13 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
-import { onSnapshot, collection } from "firebase/firestore";
+import {
+  onSnapshot,
+  collection,
+  doc,
+  deleteDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "../../../firebase";
 
 function AdminPanelRestaurants() {
@@ -54,7 +60,8 @@ function AdminPanelRestaurants() {
               <TableCell align="right">SAHIBININ ISMI</TableCell>
               <TableCell align="right">VERGI NUMARASI</TableCell>
               <TableCell align="right">VERGI DAIRESI</TableCell>
-              <TableCell align="right"></TableCell>
+              <TableCell align="right">YONET</TableCell>
+              <TableCell align="right">SIL</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -90,6 +97,31 @@ function AdminPanelRestaurants() {
                     }}
                   >
                     YONET
+                  </Button>
+                </TableCell>
+                <TableCell align="right" component="th" scope="row">
+                  <Button
+                    variant="contained"
+                    sx={{ color: "white" }}
+                    onClick={() => {
+                      const collectionRef = collection(db, "Restaurants");
+                      const docRef = doc(collectionRef, row.createdBy);
+
+                      deleteDoc(docRef)
+                        .then((res) => {
+                          const collectionRef = collection(db, "users");
+                          const docRef = doc(collectionRef, row.createdBy);
+
+                          updateDoc(docRef, { restaurantOwner: false }).then(
+                            (res) => {
+                              console.log("user doc updated " + row.createdBy);
+                            }
+                          );
+                        })
+                        .catch((err) => console.log(err));
+                    }}
+                  >
+                    SIL
                   </Button>
                 </TableCell>
               </TableRow>

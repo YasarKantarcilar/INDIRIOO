@@ -25,7 +25,7 @@ function RestaurantPanel() {
       icon: <AddIcon sx={{ width: "30px", height: "30px" }} />,
     },
     {
-      name: "MENUDEN SIL",
+      name: "MENU",
       pageNumber: 3,
       icon: <DeleteForeverIcon sx={{ width: "30px", height: "30px" }} />,
     },
