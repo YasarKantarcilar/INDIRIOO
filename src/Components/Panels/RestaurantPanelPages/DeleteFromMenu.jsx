@@ -151,6 +151,7 @@ function DeleteFromMenu(props) {
                       price: newPrice,
                     }).then(() => {
                       handleClose();
+                      window.location.pathname = `/Restaurant/${props.params}`;
                     });
                   }
                 } else if (!props.params) {
@@ -168,6 +169,7 @@ function DeleteFromMenu(props) {
                       price: newPrice,
                     }).then(() => {
                       handleClose();
+                      window.location.pathname = `/Restaurant/${auth.currentUser.uid}`;
                     });
                   }
                 }
@@ -295,6 +297,8 @@ function DeleteFromMenu(props) {
                             updateDoc(menuRef, {
                               superDiscount: false,
                               price: row[0].oldPrice,
+                            }).then(() => {
+                              window.location.pathname = `/Restaurant/${props.params}`;
                             });
                           } else if (!props.params) {
                             const restaurantRef = doc(
@@ -308,6 +312,8 @@ function DeleteFromMenu(props) {
                             updateDoc(menuRef, {
                               superDiscount: false,
                               price: row[0].oldPrice,
+                            }).then(() => {
+                              window.location.pathname = `/Restaurant/${auth.currentUser.uid}`;
                             });
                           }
                           setprice(row[0].price);
