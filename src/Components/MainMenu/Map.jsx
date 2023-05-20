@@ -85,7 +85,7 @@ function MyMap() {
 
   return (
     <LoadScript
-      googleMapsApiKey={process.env.REACT_APP_API_KEY}
+      googleMapsApiKey={process.env.REACT_APP_MAP_KEY}
       onLoad={() => {
         setIsLoaded(true);
       }}

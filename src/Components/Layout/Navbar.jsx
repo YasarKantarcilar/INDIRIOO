@@ -23,10 +23,7 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { getDoc, doc } from "firebase/firestore";
 
 const drawerWidth = 150;
-const navItems = [
-  ["ANA SAYFA", ""],
-  ["ILETISIM", "Contact"],
-];
+const navItems = [["ANA SAYFA", ""]];
 
 function Navbar(props) {
   const [isAdmin, setIsAdmin] = useState(false);

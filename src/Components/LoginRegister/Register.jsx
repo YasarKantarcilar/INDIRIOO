@@ -45,6 +45,11 @@ function Register() {
     <>
       <Navbar />
       <Container
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            handleLogin(e);
+          }
+        }}
         sx={{
           backgroundColor: "white",
           minHeight: "100vh",
@@ -54,6 +59,11 @@ function Register() {
         }}
       >
         <Box
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleLogin(e);
+            }
+          }}
           component="form"
           sx={{
             backgroundColor: "white",
@@ -116,6 +126,11 @@ function Register() {
           </Box>
 
           <Button
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleLogin(e);
+              }
+            }}
             onClick={(e) => handleLogin(e)}
             sx={{ color: "white", width: "210px", height: "50px" }}
             variant="contained"

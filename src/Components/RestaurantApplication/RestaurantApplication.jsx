@@ -185,6 +185,7 @@ function RestaurantApplication() {
 
                 <Box sx={{ position: "relative" }}>
                   <Link
+                    to={"/MapInfo"}
                     style={{
                       position: "absolute",
                       right: "220px",

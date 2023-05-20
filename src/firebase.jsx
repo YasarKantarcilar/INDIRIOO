@@ -4,12 +4,15 @@ import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyByl8qw6_p7UPu9JBrQzAovpZQZgN0U3No",
-  authDomain: "indirioo.firebaseapp.com",
-  projectId: "indirioo",
-  storageBucket: "indirioo.appspot.com",
-  messagingSenderId: "57128408618",
-  appId: "1:57128408618:web:4bf91bcda71f5ae923d553",
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  databaseURL:
+    "https://indirioo-51f39-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "indirioo-51f39",
+  storageBucket: "indirioo-51f39.appspot.com",
+  messagingSenderId: "963832550532",
+  appId: "1:963832550532:web:1e02831360356707ac1ed1",
+  measurementId: "G-SXMEJNZQNV",
 };
 
 // Initialize Firebase

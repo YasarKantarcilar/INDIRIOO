@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Footer from "../Layout/Footer";
 import Navbar from "../Layout/Navbar";
 import Restaurants from "./Restaurants";
 import Map from "./Map";
@@ -17,7 +16,6 @@ function Main() {
         </Container>
         <Restaurants />
       </QueryContext.Provider>
-      <Footer />
     </div>
   );
 }

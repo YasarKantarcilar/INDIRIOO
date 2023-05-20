@@ -48,7 +48,6 @@ function Users() {
           <TableHead>
             <TableRow>
               <TableCell>E-POSTA</TableCell>
-              <TableCell align="right">SIFRE</TableCell>
               <TableCell align="right">RESTORAN SAHIPLIK DURUMU</TableCell>
             </TableRow>
           </TableHead>
@@ -61,7 +60,6 @@ function Users() {
                 <TableCell component="th" scope="row">
                   {row.mail}
                 </TableCell>
-                <TableCell align="right">{row.password}</TableCell>
                 <TableCell align="right">
                   {row.restaurantOwner ? "EVET" : "HAYIR"}
                 </TableCell>

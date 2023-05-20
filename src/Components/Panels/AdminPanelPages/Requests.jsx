@@ -55,7 +55,7 @@ function Requests() {
               flexDirection: "column",
               gap: "5px",
               width: { xs: "32%", sm: "24%" },
-              height: "400px",
+              height: "500px",
             }}
           >
             <Box sx={{ height: "150px" }}>
@@ -93,7 +93,7 @@ function Requests() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                marginBottom: "20px",
+                marginTop: "45px",
                 gap: "5px",
               }}
             >

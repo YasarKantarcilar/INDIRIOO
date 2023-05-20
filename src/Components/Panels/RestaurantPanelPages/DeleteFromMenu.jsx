@@ -247,11 +247,7 @@ function DeleteFromMenu(props) {
                         );
                         deleteDoc(menuRef)
                           .then(() => {
-                            setMenu((prevMenu) => {
-                              return prevMenu.filter(
-                                (menu) => menu.row.idx !== idx
-                              );
-                            });
+                            alert("MENU SILINDI");
                           })
                           .catch((err) => {
                             console.log("COULDN'T DELETE", err);

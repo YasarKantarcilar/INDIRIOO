@@ -19,11 +19,27 @@ export default function Restaurants() {
   const queryData = queryContext && queryContext.queryData;
   const setQueryData = queryContext && queryContext.setQueryData;
   const [header, setHeader] = useState("YAKIN RESTORANLAR");
+  const [swiperCount, setSwiperCount] = useState(7.5);
   const [currentLocation, setCurrentLocation] = useState({
     lat: null,
     lng: null,
   });
   const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 600) {
+        setSwiperCount(3.5);
+      } else {
+        setSwiperCount(7.5);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    console.log(window.innerWidth);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -97,26 +113,26 @@ export default function Restaurants() {
       >
         <Swiper
           style={{ marginTop: "30px" }}
-          slidesPerView={7.5}
+          slidesPerView={swiperCount}
           spaceBetween={5}
           /* pagination={{
             clickable: true,
           }} */
           breakpoints={{
             "@0.00": {
-              slidesPerView: 7.5,
+              slidesPerView: swiperCount,
               spaceBetween: 10,
             },
             "@0.75": {
-              slidesPerView: 7.5,
+              slidesPerView: swiperCount,
               spaceBetween: 10,
             },
             "@1.00": {
-              slidesPerView: 7.5,
+              slidesPerView: swiperCount,
               spaceBetween: 10,
             },
             "@1.50": {
-              slidesPerView: 7.5,
+              slidesPerView: swiperCount,
               spaceBetween: 10,
             },
           }}
@@ -178,7 +194,7 @@ export default function Restaurants() {
               maxHeight: 350,
               msOverflowStyle: "none",
               my: 1,
-              width: { xs: "32%", sm: "24%", md: "19%" },
+              width: { xs: "49%", sm: "24%", md: "19%" },
             }}
           >
             {

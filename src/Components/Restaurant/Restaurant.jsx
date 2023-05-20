@@ -144,7 +144,7 @@ function Restaurant() {
                 <Image
                   src={data.imgUrl}
                   style={{
-                    width: "200px",
+                    width: "150px",
                     height: "100px",
                     border: "1px solid black",
                     borderRadius: "15px",
@@ -162,7 +162,11 @@ function Restaurant() {
                 }}
               >
                 <Typography
-                  sx={{ marginTop: "15px", textAlign: "center" }}
+                  sx={{
+                    marginTop: "15px",
+                    textAlign: "center",
+                    marginLeft: "15",
+                  }}
                   variant="h4"
                 >
                   {data.name}
@@ -259,7 +263,7 @@ function Restaurant() {
               <Box
                 sx={{
                   mx: "5%",
-                  width: "90%",
+                  width: "60%",
                   overflow: "hidden",
                   height: "20%",
                 }}

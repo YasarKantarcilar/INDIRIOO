@@ -67,6 +67,11 @@ function Login() {
           <TextField
             value={password}
             type="password"
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleLogin(e);
+              }
+            }}
             onChange={(e) => {
               setPassword(e.target.value);
             }}
