@@ -26,7 +26,6 @@ function Users() {
       setData(users);
     });
 
-    console.log(data);
     return () => {
       unsubscribe();
     };

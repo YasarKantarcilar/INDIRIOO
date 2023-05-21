@@ -40,7 +40,6 @@ function AddToMenu(props) {
           date: new Date(),
         })
           .then(() => {
-            console.log("DOC WRITTEN");
             setname("");
             setImgUrl(null);
             setprice("");
@@ -79,7 +78,6 @@ function AddToMenu(props) {
           date: new Date(),
         })
           .then(() => {
-            console.log("DOC WRITTEN");
             setname("");
             setImgUrl(null);
             setprice("");

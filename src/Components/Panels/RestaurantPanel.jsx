@@ -17,7 +17,6 @@ import Navbar from "../Layout/Navbar";
 
 function RestaurantPanel() {
   const params = useParams();
-  console.log(params.id);
   const sidebarItems = [
     {
       name: "MENUYE EKLEME YAP",
@@ -51,7 +50,6 @@ function RestaurantPanel() {
         const documentRef = doc(colRef, auth.currentUser.uid);
         getDoc(documentRef)
           .then((cred) => {
-            console.log(cred.data());
             if (
               cred.data().isAdmin ||
               cred.data().uid === params.id ||
@@ -88,7 +86,6 @@ function RestaurantPanel() {
                 getDoc(documentRef)
                   .then((cred) => {
                     setRestaurantInfo(cred.data());
-                    console.log(cred.data());
                     const menuArr = [];
                     getDocs(menuRef)
                       .then((querySnapshot) => {
@@ -118,7 +115,6 @@ function RestaurantPanel() {
     });
     return () => unsubscribe();
   }, [auth]);
-  console.log(menu);
   return (
     <>
       {params && <Navbar />}

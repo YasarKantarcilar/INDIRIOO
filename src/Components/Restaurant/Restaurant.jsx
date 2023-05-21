@@ -67,8 +67,6 @@ function Restaurant() {
         console.log("Error getting document:", error);
       });
   }, []);
-  console.log(menuData);
-  console.log(superMenu);
   return (
     <>
       <Navbar />

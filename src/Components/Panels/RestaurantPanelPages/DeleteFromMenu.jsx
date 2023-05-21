@@ -59,7 +59,6 @@ function DeleteFromMenu(props) {
         const documentRef = doc(colRef, props.params);
         const menuRef = collection(documentRef, "Menu");
         getDoc(documentRef).then((cred) => {
-          console.log(cred.data());
           const menuArr = [];
 
           getDocs(menuRef)
@@ -84,7 +83,6 @@ function DeleteFromMenu(props) {
     });
     return () => unsubscribe();
   }, [auth]);
-  console.log(menu);
 
   const modalStyle = {
     position: "absolute",

@@ -13,6 +13,7 @@ import "swiper/css/grid";
 import "swiper/css/pagination";
 import { QueryContext } from "../../Context/QueryContext";
 import { getDistance } from "geolib";
+import { Link } from "react-router-dom";
 
 export default function Restaurants() {
   const queryContext = useContext(QueryContext);
@@ -37,7 +38,6 @@ export default function Restaurants() {
 
     window.addEventListener("resize", handleResize);
 
-    console.log(window.innerWidth);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
@@ -60,7 +60,7 @@ export default function Restaurants() {
   }, []);
 
   useEffect(() => {
-    if (currentLocation.lat && currentLocation.lng) {
+    if (/* currentLocation.lat && currentLocation.lng */ true) {
       const colRef = collection(db, "Restaurants");
       const stateQuery = query(
         colRef,
@@ -72,7 +72,9 @@ export default function Restaurants() {
         .then((querySnapshot) => {
           const docs = [];
           querySnapshot.forEach((doc) => {
-            if (doc.data().lat && doc.data().lng) {
+            setHeader("RESTORANLAR");
+            docs.push({ ...doc.data(), id: doc.id });
+            /* if (doc.data().lat && doc.data().lng) {
               const distance = getDistance(
                 {
                   latitude: currentLocation.lat,
@@ -91,7 +93,7 @@ export default function Restaurants() {
                   setHeader("YAKIN RESTORANLAR");
                 }
               }
-            }
+            } */
           });
           setData(docs);
         })
@@ -179,10 +181,8 @@ export default function Restaurants() {
         }}
       >
         {data.map((item, idx) => (
-          <Box
-            onClick={() => {
-              window.location.pathname = `Restaurant/${item.id}`;
-            }}
+          <Link
+            to={`Restaurant/${item.id}`}
             key={idx}
             component="div"
             sx={{
@@ -229,7 +229,7 @@ export default function Restaurants() {
                 justifyContent: "center",
               }}
             ></Box>
-          </Box>
+          </Link>
         ))}
       </Box>
     </Container>

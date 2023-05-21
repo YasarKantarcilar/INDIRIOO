@@ -15,6 +15,7 @@ import {
   deleteDoc,
   updateDoc,
 } from "firebase/firestore";
+import { Link } from "react-router-dom";
 import { db } from "../../../firebase";
 
 function AdminPanelRestaurants() {
@@ -30,7 +31,6 @@ function AdminPanelRestaurants() {
       setData(Restaurants);
     });
 
-    console.log(data);
     return () => {
       unsubscribe();
     };
@@ -89,15 +89,7 @@ function AdminPanelRestaurants() {
                   {row.taxUnit}
                 </TableCell>
                 <TableCell align="right" component="th" scope="row">
-                  <Button
-                    variant="contained"
-                    sx={{ color: "white" }}
-                    onClick={() => {
-                      window.location.pathname = `/Panel/${row.createdBy}`;
-                    }}
-                  >
-                    YONET
-                  </Button>
+                  <Link to={`/Panel/${row.createdBy}`}>YONET</Link>
                 </TableCell>
                 <TableCell align="right" component="th" scope="row">
                   <Button
@@ -113,9 +105,7 @@ function AdminPanelRestaurants() {
                           const docRef = doc(collectionRef, row.createdBy);
 
                           updateDoc(docRef, { restaurantOwner: false }).then(
-                            (res) => {
-                              console.log("user doc updated " + row.createdBy);
-                            }
+                            (res) => {}
                           );
                         })
                         .catch((err) => console.log(err));

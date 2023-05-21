@@ -110,7 +110,6 @@ function Register() {
             label="Şifre Tekrar"
             variant="outlined"
             type="password"
-
           />
 
           <Box
