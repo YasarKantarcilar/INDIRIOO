@@ -109,6 +109,8 @@ function Register() {
             id="outlined-basic"
             label="Şifre Tekrar"
             variant="outlined"
+            type="password"
+
           />
 
           <Box
