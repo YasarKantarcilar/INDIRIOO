@@ -6,6 +6,7 @@ import { collection, onSnapshot } from "firebase/firestore";
 import { getDistance } from "geolib";
 import { QueryContext } from "../../Context/QueryContext";
 import MarkerIcon from "../../Assets/MarkerIcon/MarkerIcon.png";
+import { useNavigate } from "react-router-dom";
 
 const containerStyle = {
   marginTop: "100px",
@@ -19,6 +20,7 @@ const options = {
 };
 
 function MyMap() {
+  const navigate = useNavigate();
   const [isLoaded, setIsLoaded] = useState(false);
   const queryContext = useContext(QueryContext);
   const queryData = queryContext && queryContext.queryData;
@@ -108,7 +110,7 @@ function MyMap() {
         {data.map((restaurant, idx) => (
           <Marker
             onClick={() => {
-              window.location.pathname = `/Restaurant/${restaurant.id}`;
+              navigate(`/Restaurant/${restaurant.id}`);
             }}
             key={idx}
             position={{ lat: restaurant.lat, lng: restaurant.lng }}

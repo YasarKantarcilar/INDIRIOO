@@ -181,9 +181,7 @@ export default function Restaurants() {
         }}
       >
         {data.map((item, idx) => (
-          <Link
-            to={`Restaurant/${item.id}`}
-            key={idx}
+          <Box
             component="div"
             sx={{
               borderRadius: "5px",
@@ -197,39 +195,41 @@ export default function Restaurants() {
               width: { xs: "49%", sm: "24%", md: "19%" },
             }}
           >
-            {
-              <Image
-                style={{
-                  borderTopLeftRadius: "10px",
-                  borderTopRightRadius: "10px",
-                }}
-                src={item.imgUrl}
-                width={"100%"}
-                height={"70%"}
-              />
-            }
-            <Box sx={{ display: "flex", flexDirection: "column" }}>
-              <Typography sx={{ fontWeight: "600" }} variant="p">
-                {item.name}
-              </Typography>
-              <Box sx={{ display: "flex", gap: "10px" }}>
-                <Typography
-                  sx={{ fontSize: "14px", fontWeight: "300", color: "green" }}
-                  variant="p"
-                >
-                  {item.field}
+            <Link key={idx} to={`Restaurant/${item.id}`}>
+              {
+                <Image
+                  style={{
+                    borderTopLeftRadius: "10px",
+                    borderTopRightRadius: "10px",
+                  }}
+                  src={item.imgUrl}
+                  width={"100%"}
+                  height={"70%"}
+                />
+              }
+              <Box sx={{ display: "flex", flexDirection: "column" }}>
+                <Typography sx={{ fontWeight: "600" }} variant="p">
+                  {item.name}
                 </Typography>
+                <Box sx={{ display: "flex", gap: "10px" }}>
+                  <Typography
+                    sx={{ fontSize: "14px", fontWeight: "300", color: "green" }}
+                    variant="p"
+                  >
+                    {item.field}
+                  </Typography>
+                </Box>
               </Box>
-            </Box>
-            <Box
-              sx={{
-                width: "100%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            ></Box>
-          </Link>
+              <Box
+                sx={{
+                  width: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              ></Box>
+            </Link>
+          </Box>
         ))}
       </Box>
     </Container>

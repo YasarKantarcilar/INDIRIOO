@@ -8,8 +8,10 @@ import { doc, getDoc, collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase";
 import Map from "../MainMenu/Map";
 import MarkerIcon from "../../Assets/MarkerIcon/MarkerIcon.png";
+import { useNavigate } from "react-router-dom";
 
 function Restaurant() {
+  const navigate = useNavigate();
   const [currentLocation, setCurrentLocation] = useState({
     lat: null,
     lng: null,
@@ -60,7 +62,7 @@ function Restaurant() {
             setMenuData(menuDataArr);
           });
         } else {
-          window.location.pathname = "/";
+          navigate("/");
         }
       })
       .catch((error) => {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -7,20 +7,29 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import { Container, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import Navbar from "../Layout/Navbar";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
-  if (auth.currentUser) {
-    window.location.pathname = "/";
-  }
+  const navigate = useNavigate();
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        navigate("/");
+      } else {
+      }
+    });
+
+    return () => unsubscribe();
+  }, [auth]);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [text, settext] = useState("");
   const handleLogin = (e) => {
     signInWithEmailAndPassword(auth, email, password)
       .then((user) => {
-        window.location.pathname = "/";
+        navigate("/");
       })
       .catch((err) => settext("HATALI KULLANICI ADI SIFRE"));
   };

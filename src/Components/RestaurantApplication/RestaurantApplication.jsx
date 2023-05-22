@@ -13,9 +13,11 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { useNavigate } from "react-router-dom";
 import FieldsData from "../FieldsData";
 
 function RestaurantApplication() {
+  const navigate = useNavigate();
   const [isAdmin, setIsAdmin] = useState();
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
@@ -89,7 +91,7 @@ function RestaurantApplication() {
         .then(() => {
           settext("BASVURUNUZ ALINMISTIR, YONLENDIRILIYORSUNUZ");
           setisSubmitting(false);
-          setTimeout(() => (window.location.pathname = "/"), 3000);
+          setTimeout(() => navigate("/"), 3000);
         })
         .catch((error) => {
           console.log("Error creating document:", error);

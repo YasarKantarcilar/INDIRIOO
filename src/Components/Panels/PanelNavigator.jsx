@@ -8,8 +8,10 @@ import AdminPanel from "./AdminPanel";
 import RestaurantPanel from "./RestaurantPanel";
 import Navbar from "../Layout/Navbar";
 import Restaurants from "../MainMenu/Restaurants";
+import { useNavigate } from "react-router-dom";
 
 function PanelNavigator() {
+  const navigate = useNavigate();
   const [userData, setUserData] = useState([]);
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -19,13 +21,13 @@ function PanelNavigator() {
           setUserData(doc.data());
         });
       } else {
-        window.location.pathname = "/";
+        navigate("/");
       }
     });
     return () => unsubscribe();
   }, [auth]);
   if (userData.isAdmin === false && userData.restaurantOwner === false) {
-    window.location.pathname = "/";
+    navigate("/");
   }
   return (
     <>

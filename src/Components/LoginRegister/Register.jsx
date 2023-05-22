@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -8,17 +8,30 @@ import { Container } from "@mui/material";
 import { Link } from "react-router-dom";
 import Navbar from "../Layout/Navbar";
 import { auth, db } from "../../firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+} from "firebase/auth";
 import { collection, doc, setDoc } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
-  if (auth.currentUser) {
-    window.location.pathname = "/";
-  }
+  const navigate = useNavigate();
   const colRef = collection(db, "users");
   const [email, setEmail] = useState("");
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        navigate("/");
+      } else {
+      }
+    });
+
+    return () => unsubscribe();
+  }, [auth]);
 
   const handleLogin = (e) => {
     if (password1 === password2) {
@@ -33,7 +46,7 @@ function Register() {
             createDate: new Date(),
           })
             .then(() => {
-              window.location.pathname = "/";
+              navigate("/");
             })
             .catch((error) => console.error("Error writing document: ", error));
         })

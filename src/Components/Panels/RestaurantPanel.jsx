@@ -14,8 +14,10 @@ import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import DeleteFromMenu from "./RestaurantPanelPages/DeleteFromMenu";
 import { useParams } from "react-router-dom";
 import Navbar from "../Layout/Navbar";
+import { useNavigate } from "react-router-dom";
 
 function RestaurantPanel() {
+  const navigate = useNavigate();
   const params = useParams();
   const sidebarItems = [
     {
@@ -76,7 +78,7 @@ function RestaurantPanel() {
                       });
                   })
                   .catch(() => {
-                    window.location.pathname = "/";
+                    navigate("/");
                   });
               } else if (params && user) {
                 const colRef = collection(db, "Restaurants");
@@ -99,18 +101,18 @@ function RestaurantPanel() {
                       });
                   })
                   .catch(() => {
-                    window.location.pathname = "/";
+                    navigate("/");
                   });
               }
             } else {
-              window.location.pathname = "/";
+              navigate("/");
             }
           })
           .catch(() => {
-            window.location.pathname = "/";
+            navigate("/");
           });
       } else {
-        window.location.pathname = "/";
+        navigate("/");
       }
     });
     return () => unsubscribe();
@@ -152,7 +154,7 @@ function RestaurantPanel() {
           >
             <Box
               onClick={() => {
-                window.location.pathname = `/Restaurant/${restaurantInfo.createdBy}`;
+                navigate(`/Restaurant/${restaurantInfo.createdBy}`);
               }}
               sx={{
                 paddingLeft: "10px",

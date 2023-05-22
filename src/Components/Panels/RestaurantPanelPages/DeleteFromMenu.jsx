@@ -22,8 +22,10 @@ import { Button, Container, TextField, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function DeleteFromMenu(props) {
+  const navigate = useNavigate();
   const params = useParams();
   const [menu, setMenu] = useState([]);
   const [newPrice, setNewPrice] = useState(0);
@@ -149,7 +151,7 @@ function DeleteFromMenu(props) {
                       price: newPrice,
                     }).then(() => {
                       handleClose();
-                      window.location.pathname = `/Restaurant/${props.params}`;
+                      navigate(`/Restaurant/${props.params}`);
                     });
                   }
                 } else if (!props.params) {
@@ -167,7 +169,7 @@ function DeleteFromMenu(props) {
                       price: newPrice,
                     }).then(() => {
                       handleClose();
-                      window.location.pathname = `/Restaurant/${auth.currentUser.uid}`;
+                      navigate(`/Restaurant/${auth.currentUser.uid}`);
                     });
                   }
                 }
@@ -292,7 +294,7 @@ function DeleteFromMenu(props) {
                               superDiscount: false,
                               price: row[0].oldPrice,
                             }).then(() => {
-                              window.location.pathname = `/Restaurant/${props.params}`;
+                              navigate(`/Restaurant/${props.params}`);
                             });
                           } else if (!props.params) {
                             const restaurantRef = doc(
@@ -307,7 +309,7 @@ function DeleteFromMenu(props) {
                               superDiscount: false,
                               price: row[0].oldPrice,
                             }).then(() => {
-                              window.location.pathname = `/Restaurant/${auth.currentUser.uid}`;
+                              navigate(`/Restaurant/${auth.currentUser.uid}`);
                             });
                           }
                           setprice(row[0].price);
