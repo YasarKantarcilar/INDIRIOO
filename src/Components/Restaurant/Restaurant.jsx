@@ -9,6 +9,7 @@ import { db } from "../../firebase";
 import Map from "../MainMenu/Map";
 import MarkerIcon from "../../Assets/MarkerIcon/MarkerIcon.png";
 import { useNavigate } from "react-router-dom";
+import Footer from "../Layout/Footer";
 
 function Restaurant() {
   const navigate = useNavigate();
@@ -85,13 +86,13 @@ function Restaurant() {
           }}
         >
           <Box sx={{ width: { xs: "100%", s: "49%" }, height: "450px" }}>
-            <LoadScript
-              googleMapsApiKey={process.env.REACT_APP_API_KEY}
-              onLoad={() => {
-                setIsLoaded(true);
-              }}
-            >
-              {data.lat && data.lng && (
+            {data.lat && data.lng && (
+              <LoadScript
+                googleMapsApiKey={"AIzaSyDw3zY3zFlTM8lYeABcTlNkRqu6pgmKk78"}
+                onLoad={() => {
+                  setIsLoaded(true);
+                }}
+              >
                 <GoogleMap
                   mapContainerStyle={{ width: "100%", height: "100%" }}
                   center={{ lat: data.lat, lng: data.lng }}
@@ -115,8 +116,8 @@ function Restaurant() {
                   )}
                   <Marker position={{ lat: data.lat, lng: data.lng }} />
                 </GoogleMap>
-              )}
-            </LoadScript>
+              </LoadScript>
+            )}
           </Box>
           <Box
             sx={{
@@ -394,6 +395,7 @@ function Restaurant() {
           ))}
         </Box>
       </Container>
+      <Footer />
     </>
   );
 }

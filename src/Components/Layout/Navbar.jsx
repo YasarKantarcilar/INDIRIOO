@@ -18,6 +18,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import indiriooLogo from "../../Assets/indiriooLogo.png";
+import indiriooAvatar from "../../Assets/indiriooAvatar.png";
 import { auth, db } from "../../firebase";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { getDoc, doc } from "firebase/firestore";
@@ -60,9 +62,7 @@ function Navbar(props) {
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
-        INDIRIOO
-      </Typography>
+      <img src={indiriooAvatar} style={{ width: "60px", height: "60px" }} />
       <Divider />
       <List>
         {navItems.map((item) => (
@@ -172,13 +172,16 @@ function Navbar(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
-          >
-            INDIRIOO
-          </Typography>
+          <Box sx={{ flexGrow: 1, display: "flex", alignItems: "center" }}>
+            <img
+              src={indiriooLogo}
+              style={{ width: "120px", height: "30px", marginLeft: "30px" }}
+            />
+            <img
+              src={indiriooAvatar}
+              style={{ width: "60px", height: "60px" }}
+            />
+          </Box>
           <Box sx={{ display: { xs: "none", sm: "flex" }, gap: "10px" }}>
             {navItems.map((item, idx) => (
               <Button key={idx} sx={{ fontSize: "14px", color: "#fff" }}>

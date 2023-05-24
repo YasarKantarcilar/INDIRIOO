@@ -8,11 +8,13 @@ import Restaurant from "./Components/Restaurant/Restaurant";
 import PanelNavigator from "./Components/Panels/PanelNavigator";
 import RestaurantPanel from "./Components/Panels/RestaurantPanel";
 import MapInfoPage from "./Components/MapInfoPage";
+import Footer from "./Components/Layout/Footer";
+import Privacy from "./Components/PrivacyPolicy";
+import KVKK from "./Components/KVKK";
 function App() {
   return (
     <div>
       <Routes>
-        z
         <Route path="/" element={<Main />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/Register" element={<Register />} />
@@ -20,6 +22,8 @@ function App() {
         <Route path="/Restaurant/:id" element={<Restaurant />} />
         <Route path="/Panel/:id" element={<RestaurantPanel />} />
         <Route path="/MapInfo" element={<MapInfoPage />} />
+        <Route path="/Privacy" element={<Privacy />} />
+        <Route path="/KVKK" element={<KVKK />} />
         <Route
           path="/RestaurantApplication"
           element={<RestaurantApplication />}
