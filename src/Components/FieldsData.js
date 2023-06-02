@@ -30,7 +30,7 @@ export default [
     "https://firebasestorage.googleapis.com/v0/b/indirioo-51f39.appspot.com/o/RestaurantFıeldImages%2Fkofte.jpgSat%20May%2020%202023%2022%3A13%3A06%20GMT%2B0300%20(GMT%2B03%3A00)?alt=media&token=e412fc44-66cd-4cf8-b18f-1193ae1b770c",
   ],
   [
-    "PIDE/LAHMACUN",
+    "PIDE LAHMACUN",
     "PIDE-LAHMACUN",
     "https://firebasestorage.googleapis.com/v0/b/indirioo-51f39.appspot.com/o/RestaurantFıeldImages%2Flahmacun.jpgSat%20May%2020%202023%2022%3A13%3A17%20GMT%2B0300%20(GMT%2B03%3A00)?alt=media&token=1ffad2b4-c63d-4997-8936-93450a4aeef6",
   ],

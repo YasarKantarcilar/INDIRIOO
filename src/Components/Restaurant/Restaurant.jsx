@@ -70,6 +70,7 @@ function Restaurant() {
         console.log("Error getting document:", error);
       });
   }, []);
+  console.log(menuData);
   return (
     <>
       <Navbar />
@@ -198,7 +199,7 @@ function Restaurant() {
                   fontWeight: "400",
                 }}
               >
-                AÇILIŞ: {data.openingTime}:00
+                AÇILIŞ: {data.openingTime}
               </Typography>
               <Typography
                 sx={{
@@ -206,7 +207,7 @@ function Restaurant() {
                   fontWeight: "400",
                 }}
               >
-                KAPANIS: {data.closingTime}:00
+                KAPANIS: {data.closingTime}
               </Typography>
               <Typography
                 sx={{
@@ -239,19 +240,18 @@ function Restaurant() {
             <Box
               sx={{
                 p: 0,
-                minHeight: 200,
-                maxHeight: 350,
+                minHeight: 400,
                 my: 1,
                 border: "2px solid #FA4A0C",
                 width: { xs: "32%", sm: "24", md: "19%" },
                 boxShadow: "rgba(0, 0, 0, 0.1) 0px 4px 12px",
               }}
             >
-              <Image src={superMenu.imgUrl} width={"100%"} height={"60%"} />
+              <Image src={superMenu.imgUrl} width={"100%"} height={"50%"} />
               <Typography
                 sx={{
                   color: "orange",
-                  height: "10%",
+                  height: "15%",
                   overflow: "hidden",
                   display: "block",
                   textAlign: "center",
@@ -313,85 +313,156 @@ function Restaurant() {
               </Box>
             </Box>
           )}
+
           {menuData.map((item, idx) => (
-            <Box
-              key={idx}
-              sx={{
-                p: 0,
-                minHeight: 200,
-                maxHeight: 350,
-                my: 1,
-                width: { xs: "32%", sm: "24", md: "19%" },
-                boxShadow: "rgba(0, 0, 0, 0.1) 0px 4px 12px",
-              }}
-            >
-              <Image src={item.imgUrl} width={"100%"} height={"60%"} />
-              <Typography
-                sx={{
-                  color: "orange",
-                  height: "10%",
-                  overflow: "hidden",
-                  display: "block",
-                  textAlign: "center",
-                }}
-                variant="P"
-              >
-                INDIRIOO: {item.name}
-              </Typography>
-
-              <Box
-                sx={{
-                  mx: "5%",
-                  width: "90%",
-                  overflow: "hidden",
-                  height: "20%",
-                }}
-              >
-                <Typography
+            <>
+              {item.stock && (
+                <Box
+                  key={idx}
                   sx={{
-                    overflow: "hidden",
-
-                    textAlign: "center",
-                    wordWrap: "break-word",
+                    p: 0,
+                    minHeight: 350,
+                    my: 1,
+                    width: { xs: "32%", sm: "24", md: "19%" },
+                    boxShadow: "rgba(0, 0, 0, 0.1) 0px 4px 12px",
                   }}
-                  variant="p"
                 >
-                  {item.description}
-                </Typography>
-              </Box>
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  height: "10%",
-                }}
-              >
-                {parseInt(item.price) < parseInt(item.oldPrice) && (
+                  <Image src={item.imgUrl} width={"100%"} height={"60%"} />
                   <Typography
                     sx={{
+                      color: "orange",
+                      height: "10%",
+                      overflow: "hidden",
+                      display: "block",
                       textAlign: "center",
-                      width: "100%",
-                      textDecoration: "line-through",
                     }}
-                    variant="p"
+                    variant="P"
                   >
-                    {item.oldPrice}₺
+                    INDIRIOO: {item.name}
                   </Typography>
-                )}
-                <Typography
+
+                  <Box
+                    sx={{
+                      mx: "5%",
+                      width: "90%",
+                      overflow: "hidden",
+                      height: "20%",
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        overflow: "hidden",
+
+                        textAlign: "center",
+                        wordWrap: "break-word",
+                      }}
+                      variant="p"
+                    >
+                      {item.description}
+                    </Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      height: "10%",
+                    }}
+                  >
+                    {parseInt(item.price) < parseInt(item.oldPrice) && (
+                      <Typography
+                        sx={{
+                          textAlign: "center",
+                          width: "100%",
+                          textDecoration: "line-through",
+                        }}
+                        variant="p"
+                      >
+                        {item.oldPrice}₺
+                      </Typography>
+                    )}
+                    <Typography
+                      sx={{
+                        textAlign: "center",
+                        width: "100%",
+                        color: "orange",
+                        fontWeight: "700",
+                      }}
+                      variant="p"
+                    >
+                      {item.price}₺
+                    </Typography>
+                  </Box>
+                </Box>
+              )}
+              {!item.stock && (
+                <Box
+                  key={idx}
                   sx={{
-                    textAlign: "center",
-                    width: "100%",
-                    color: "orange",
-                    fontWeight: "700",
+                    p: 0,
+                    minHeight: 350,
+                    my: 1,
+                    width: { xs: "32%", sm: "24", md: "19%" },
+                    boxShadow: "rgba(0, 0, 0, 0.1) 0px 4px 12px",
                   }}
-                  variant="p"
                 >
-                  {item.price}₺
-                </Typography>
-              </Box>
-            </Box>
+                  <Image src={item.imgUrl} width={"100%"} height={"60%"} />
+                  <Typography
+                    sx={{
+                      color: "orange",
+                      height: "10%",
+                      overflow: "hidden",
+                      display: "block",
+                      textAlign: "center",
+                    }}
+                    variant="P"
+                  >
+                    INDIRIOO: {item.name}
+                  </Typography>
+
+                  <Box
+                    sx={{
+                      mx: "5%",
+                      width: "90%",
+                      overflow: "hidden",
+                      height: "20%",
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        overflow: "hidden",
+
+                        textAlign: "center",
+                        wordWrap: "break-word",
+                      }}
+                      variant="p"
+                    >
+                      STOKTA YOK
+                    </Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      height: "10%",
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        textAlign: "center",
+                        width: "100%",
+                        color: "GRAY",
+                        fontWeight: "700",
+                      }}
+                      variant="p"
+                    >
+                      {item.price}₺
+                    </Typography>
+                  </Box>
+                </Box>
+              )}
+            </>
           ))}
         </Box>
       </Container>

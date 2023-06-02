@@ -71,7 +71,8 @@ export default function Restaurants() {
 
       getDocs(stateQuery)
         .then((querySnapshot) => {
-          const docs = [];
+          const near = [];
+          const far = [];
           querySnapshot.forEach((doc) => {
             if (doc.data().lat && doc.data().lng) {
               const distance = getDistance(
@@ -82,19 +83,22 @@ export default function Restaurants() {
                 { latitude: doc.data().lat, longitude: doc.data().lng }
               );
               if (distance <= 3000) {
-                // 3km
-                docs.push({ ...doc.data(), id: doc.id });
+                near.push({ ...doc.data(), id: doc.id });
               } else {
-                if (docs[0] === undefined) {
-                  setHeader("UZAK RESTORANLAR");
-                  docs.push({ ...doc.data(), id: doc.id });
-                } else {
-                  setHeader("RESTORAN BULUNAMADI");
-                }
+                far.push({ ...doc.data(), id: doc.id });
               }
             }
           });
-          setData(docs);
+          if (near[0] != undefined) {
+            setHeader("SIZE YAKIN RESTORANLAR");
+            setData(near);
+          } else if (near[0] == undefined && far[0] != undefined) {
+            setHeader("SIZE UZAK RESTORANLAR");
+            setData(far);
+          } else if (near[0] == undefined && far[0] == undefined) {
+            setHeader("BU ALANDA HIZMET VEREN RESTORAN BULUNMAMAKTADIR");
+            setData([]);
+          }
         })
         .catch((error) => {
           console.log("Error getting documents: ", error);
@@ -121,22 +125,10 @@ export default function Restaurants() {
             clickable: true,
           }} */
             breakpoints={{
-              "@0.00": {
-                slidesPerView: swiperCount,
-                spaceBetween: 10,
-              },
-              "@0.75": {
-                slidesPerView: swiperCount,
-                spaceBetween: 10,
-              },
-              "@1.00": {
-                slidesPerView: swiperCount,
-                spaceBetween: 10,
-              },
-              "@1.50": {
-                slidesPerView: swiperCount,
-                spaceBetween: 10,
-              },
+              320: { slidesPerView: 2.5, spaceBetween: 5 },
+              480: { slidesPerView: 3.5, spaceBetween: 5 },
+              768: { slidesPerView: 5.5, spaceBetween: 5 },
+              1024: { slidesPerView: 7.5, spaceBetween: 5 },
             }}
             modules={[Pagination]}
             className="mySwiper"
@@ -188,8 +180,8 @@ export default function Restaurants() {
                 boxShadow: "rgba(17, 17, 26, 0.1) 0px 1px 0px",
                 cursor: "pointer",
                 p: 0,
-                minHeight: 200,
-                maxHeight: 350,
+                height: "200px",
+                height: "250px",
                 msOverflowStyle: "none",
                 my: 1,
                 width: { xs: "49%", sm: "24%", md: "19%" },

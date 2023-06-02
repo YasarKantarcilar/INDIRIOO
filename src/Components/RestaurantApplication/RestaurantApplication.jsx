@@ -1,20 +1,21 @@
-import React, { useState, useEffect } from "react";
-import Navbar from "../Layout/Navbar";
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
 import { Container, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { auth, db, storage } from "../../firebase";
-import { setDoc, doc, collection, getDoc } from "firebase/firestore";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { onAuthStateChanged } from "firebase/auth";
-import { Link } from "react-router-dom";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import { useNavigate } from "react-router-dom";
+import { collection, doc, getDoc, setDoc } from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import FieldsData from "../FieldsData";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import { Link } from "react-router-dom";
+import MenuItem from "@mui/material/MenuItem";
+import Navbar from "../Layout/Navbar";
+import Select from "@mui/material/Select";
+import TextField from "@mui/material/TextField";
+import { onAuthStateChanged } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 function RestaurantApplication() {
   const navigate = useNavigate();
@@ -297,7 +298,9 @@ function RestaurantApplication() {
                   }}
                 >
                   {FieldsData.map((item, idx) => (
-                    <MenuItem value={item[0]}>{item[1]}</MenuItem>
+                    <MenuItem key={idx} value={item[1]}>
+                      {item[0]}
+                    </MenuItem>
                   ))}
                 </Select>
               </FormControl>

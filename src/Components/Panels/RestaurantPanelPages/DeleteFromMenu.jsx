@@ -189,6 +189,7 @@ function DeleteFromMenu(props) {
               <TableCell align="left">ACIKLAMA</TableCell>
               <TableCell align="left">FIYAT</TableCell>
               <TableCell align="left">ESKI FIYAT</TableCell>
+              <TableCell align="left">STOK</TableCell>
               <TableCell align="right">SIL</TableCell>
               <TableCell align="right">SUPER INDIRIM</TableCell>
             </TableRow>
@@ -212,6 +213,88 @@ function DeleteFromMenu(props) {
                 </TableCell>
                 <TableCell align="left" component="th" scope="row">
                   {row[0].oldPrice} TL
+                </TableCell>
+                <TableCell align="left" component="th" scope="row">
+                  {row[0].stock ? (
+                    <Button
+                      onClick={() => {
+                        if (props.params) {
+                          const restaurantRef = doc(
+                            collection(db, "Restaurants"),
+                            props.params
+                          );
+                          const menuRef = doc(
+                            collection(restaurantRef, "Menu"),
+                            row[1]
+                          );
+                          updateDoc(menuRef, {
+                            stock: false,
+                          }).then(() => {
+                            navigate(`/Restaurant/${props.params}`);
+                          });
+                        } else if (!props.params) {
+                          const restaurantRef = doc(
+                            collection(db, "Restaurants"),
+                            auth.currentUser.uid
+                          );
+                          const menuRef = doc(
+                            collection(restaurantRef, "Menu"),
+                            row[1]
+                          );
+                          updateDoc(menuRef, {
+                            stock: false,
+                          }).then(() => {
+                            navigate(`/Restaurant/${auth.currentUser.uid}`);
+                          });
+                        }
+                      }}
+                      variant="contained"
+                      sx={{ color: "white" }}
+                    >
+                      STOK YOK
+                    </Button>
+                  ) : (
+                    <Button
+                      onClick={() => {
+                        if (props.params) {
+                          const restaurantRef = doc(
+                            collection(db, "Restaurants"),
+                            props.params
+                          );
+                          const menuRef = doc(
+                            collection(restaurantRef, "Menu"),
+                            row[1]
+                          );
+                          updateDoc(menuRef, {
+                            stock: true,
+                          }).then(() => {
+                            console.log("DOC UPDATED");
+                            navigate(`/Restaurant/${props.params}`);
+                          });
+                        } else if (!props.params) {
+                          const restaurantRef = doc(
+                            collection(db, "Restaurants"),
+                            auth.currentUser.uid
+                          );
+                          const menuRef = doc(
+                            collection(restaurantRef, "Menu"),
+                            row[1]
+                          );
+                          updateDoc(menuRef, {
+                            stock: true,
+                          }).then(() => {
+                            console.log("DOC UPDATED");
+
+                            navigate(`/Restaurant/${auth.currentUser.uid}`);
+                          });
+                        }
+                      }}
+                      variant="contained"
+                      sx={{ color: "white" }}
+                    >
+                      STOK VAR
+                    </Button>
+                  )}
                 </TableCell>
                 <TableCell align="right" component="th" scope="row">
                   <Button

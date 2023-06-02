@@ -184,6 +184,7 @@ function AddToMenu(props) {
         type="file"
         onChange={(e) => {
           setImgUpload(e.target.files[0]);
+          console.log(imgUpload);
         }}
       />
       <Button
