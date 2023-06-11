@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from "react";
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import Checkbox from "@mui/material/Checkbox";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import { Container } from "@mui/material";
-import { Link } from "react-router-dom";
-import Navbar from "../Layout/Navbar";
+import React, { useEffect, useState } from "react";
 import { auth, db } from "../../firebase";
+import { collection, doc, setDoc } from "firebase/firestore";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
 } from "firebase/auth";
-import { collection, doc, setDoc } from "firebase/firestore";
+
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Checkbox from "@mui/material/Checkbox";
+import { Container } from "@mui/material";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import { Link } from "react-router-dom";
+import Navbar from "../Layout/Navbar";
+import TextField from "@mui/material/TextField";
 import { useNavigate } from "react-router-dom";
 
 function Register() {
@@ -21,6 +22,7 @@ function Register() {
   const [email, setEmail] = useState("");
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
+  const [isChecked, setisChecked] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -34,7 +36,7 @@ function Register() {
   }, [auth]);
 
   const handleLogin = (e) => {
-    if (password1 === password2) {
+    if (password1 === password2 && isChecked && email !== "") {
       createUserWithEmailAndPassword(auth, email, password1)
         .then((userCred) => {
           const userId = userCred.user.uid;
@@ -43,6 +45,9 @@ function Register() {
             uid: userCred.user.uid,
             isAdmin: false,
             restaurantOwner: false,
+            name: "",
+            phone: "",
+            usedCodes: [],
             createDate: new Date(),
           })
             .then(() => {
@@ -127,16 +132,25 @@ function Register() {
 
           <Box
             sx={{
-              width: "210px",
+              width: "230px",
               display: "flex",
               justifyContent: "flex-start",
+              alignItems: "center",
             }}
           >
             <FormControlLabel
-              sx={{ marginRight: "50px" }}
               control={<Checkbox />}
-              label="Beni Hatırla"
+              label="OKUDUM"
+              onChange={(e) => {
+                setisChecked(e.target.checked);
+              }}
             />
+            <Link
+              to={"https://indirioo.com/#/Privacy"}
+              style={{ color: "orange" }}
+            >
+              ONAYLIYORUM
+            </Link>
           </Box>
 
           <Button

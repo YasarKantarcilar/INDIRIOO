@@ -1,21 +1,22 @@
-import React, { useState, useEffect } from "react";
 import { Box, Button, Container } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  onSnapshot,
+  updateDoc,
+} from "firebase/firestore";
+
+import { Link } from "react-router-dom";
+import Paper from "@mui/material/Paper";
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
-import {
-  onSnapshot,
-  collection,
-  doc,
-  deleteDoc,
-  updateDoc,
-} from "firebase/firestore";
-import { Link } from "react-router-dom";
 import { db } from "../../../firebase";
 
 function AdminPanelRestaurants() {
@@ -59,7 +60,7 @@ function AdminPanelRestaurants() {
               <TableCell align="right">SAHIBININ TELEFON</TableCell>
               <TableCell align="right">SAHIBININ ISMI</TableCell>
               <TableCell align="right">VERGI NUMARASI</TableCell>
-              <TableCell align="right">VERGI DAIRESI</TableCell>
+              <TableCell align="right">KULLANILAN KODLAR</TableCell>
               <TableCell align="right">YONET</TableCell>
               <TableCell align="right">SIL</TableCell>
             </TableRow>
@@ -86,7 +87,23 @@ function AdminPanelRestaurants() {
                   {row.taxNo}
                 </TableCell>
                 <TableCell align="right" component="th" scope="row">
-                  {row.taxUnit}
+                  <select
+                    style={{
+                      width: "150px",
+                      height: "30px",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <option defaultValue={0}>
+                      KOD TOPLAM:
+                      {row.usedCodes.length > 0 ? row.usedCodes.length : 0}
+                    </option>
+                    {row.usedCodes.map((code, idx) => (
+                      <option>{code}</option>
+                    ))}
+                  </select>
                 </TableCell>
                 <TableCell align="right" component="th" scope="row">
                   <Link to={`/Panel/${row.createdBy}`}>YONET</Link>

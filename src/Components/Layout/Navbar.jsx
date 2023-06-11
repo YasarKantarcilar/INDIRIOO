@@ -1,15 +1,20 @@
 //REACT
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+
 import "./Navbar.css";
 
-//MATERIAL UI
+import React, { useEffect, useState } from "react";
+import { auth, db } from "../../firebase";
+import { doc, getDoc } from "firebase/firestore";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
+import { Link } from "react-router-dom";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -17,12 +22,10 @@ import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import indiriooLogo from "../../Assets/indiriooLogo.png";
 import indiriooAvatar from "../../Assets/indiriooAvatar.png";
-import { auth, db } from "../../firebase";
-import { onAuthStateChanged, signOut } from "firebase/auth";
-import { getDoc, doc } from "firebase/firestore";
+import indiriooLogo from "../../Assets/indiriooLogo.png";
+
+//MATERIAL UI
 
 const drawerWidth = 150;
 const navItems = [["ANA SAYFA", ""]];
@@ -62,7 +65,13 @@ function Navbar(props) {
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
-      <img src={indiriooAvatar} style={{ width: "60px", height: "60px" }} />
+      <img
+        onClick={() => {
+          <Link to={"/"} />;
+        }}
+        src={indiriooAvatar}
+        style={{ width: "60px", height: "60px" }}
+      />
       <Divider />
       <List>
         {navItems.map((item) => (
@@ -173,14 +182,20 @@ function Navbar(props) {
             <MenuIcon />
           </IconButton>
           <Box sx={{ flexGrow: 1, display: "flex", alignItems: "center" }}>
-            <img
-              src={indiriooLogo}
-              style={{ width: "120px", height: "30px", marginLeft: "30px" }}
-            />
-            <img
-              src={indiriooAvatar}
-              style={{ width: "60px", height: "60px" }}
-            />
+            <Link to={"/"}>
+              <img
+                onClick={() => {}}
+                src={indiriooLogo}
+                style={{ width: "120px", height: "30px", marginLeft: "30px" }}
+              />
+            </Link>
+            <Link to={"/"}>
+              <img
+                onClick={() => {}}
+                src={indiriooAvatar}
+                style={{ width: "60px", height: "60px" }}
+              />
+            </Link>
           </Box>
           <Box sx={{ display: { xs: "none", sm: "flex" }, gap: "10px" }}>
             {navItems.map((item, idx) => (

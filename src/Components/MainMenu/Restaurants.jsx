@@ -1,20 +1,22 @@
-import { query, where, getDocs } from "firebase/firestore";
-import React, { useState, useEffect, useContext } from "react";
-import Box from "@mui/material/Box";
-import { db } from "../../firebase";
-import { Container, Typography } from "@mui/material";
-import Image from "mui-image";
-import { collection, onSnapshot } from "firebase/firestore";
-import FieldsData from "../FieldsData";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/grid";
 import "swiper/css/pagination";
-import { QueryContext } from "../../Context/QueryContext";
-import { getDistance } from "geolib";
-import { Link } from "react-router-dom";
+
+import { Container, Typography } from "@mui/material";
+import React, { useContext, useEffect, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { collection, onSnapshot } from "firebase/firestore";
+import { getDocs, query, where } from "firebase/firestore";
+
+import Box from "@mui/material/Box";
+import FieldsData from "../FieldsData";
 import Footer from "../Layout/Footer";
+import Image from "mui-image";
+import { Link } from "react-router-dom";
+import { Pagination } from "swiper";
+import { QueryContext } from "../../Context/QueryContext";
+import { db } from "../../firebase";
+import { getDistance } from "geolib";
 
 export default function Restaurants() {
   const queryContext = useContext(QueryContext);
@@ -174,6 +176,7 @@ export default function Restaurants() {
         >
           {data.map((item, idx) => (
             <Box
+              key={idx}
               component="div"
               sx={{
                 borderRadius: "5px",

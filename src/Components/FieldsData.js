@@ -2,7 +2,7 @@ export default [
   [
     "BURGER",
     "BURGER",
-    "https://firebasestorage.googleapis.com/v0/b/indirioo-51f39.appspot.com/o/RestaurantFıeldImages%2Fburger.jpegSat%20May%2020%202023%2022%3A11%3A18%20GMT%2B0300%20(GMT%2B03%3A00)?alt=media&token=a2e3039f-f2a5-473a-8b4e-2be96d85d86a",
+    "https://firebasestorage.googleapis.com/v0/b/indirioo-51f39.appspot.com/o/RestaurantFıeldImages%2FburgerFri%20Jun%2009%202023%2020%3A46%3A38%20GMT%2B0300%20(GMT%2B03%3A00)?alt=media&token=2d970cb4-48d0-4d56-a0cd-d9cc941fea72&_gl=1*1eo53oi*_ga*MTQ2MTc3MjM4OC4xNjc5NDA5MjY4*_ga_CW55HF8NVT*MTY4NjMzMjQ1Ny4yNy4xLjE2ODYzMzI4MDYuMC4wLjA.",
   ],
   [
     "DONER",
@@ -22,7 +22,7 @@ export default [
   [
     "TAVUK",
     "TAVUK",
-    "https://firebasestorage.googleapis.com/v0/b/indirioo-51f39.appspot.com/o/RestaurantFıeldImages%2Ftost.jpgSat%20May%2020%202023%2022%3A14%3A42%20GMT%2B0300%20(GMT%2B03%3A00)?alt=media&token=4acbaf52-1d3a-4477-9099-ec5e472c8d7a",
+    "https://firebasestorage.googleapis.com/v0/b/indirioo-51f39.appspot.com/o/RestaurantFıeldImages%2Ftavuk.jpgSat%20May%2020%202023%2022%3A14%3A34%20GMT%2B0300%20(GMT%2B03%3A00)?alt=media&token=2139067a-753b-4360-a344-a789a6c787f9&_gl=1*17i29o7*_ga*MTQ2MTc3MjM4OC4xNjc5NDA5MjY4*_ga_CW55HF8NVT*MTY4NjM3MTc1OC4yOC4xLjE2ODYzNzE3ODEuMC4wLjA.",
   ],
   [
     "KOFTE",
@@ -35,49 +35,9 @@ export default [
     "https://firebasestorage.googleapis.com/v0/b/indirioo-51f39.appspot.com/o/RestaurantFıeldImages%2Flahmacun.jpgSat%20May%2020%202023%2022%3A13%3A17%20GMT%2B0300%20(GMT%2B03%3A00)?alt=media&token=1ffad2b4-c63d-4997-8936-93450a4aeef6",
   ],
   [
-    "SOKAK LEZZETLERI",
-    "SOKAK-LEZZETLERI",
-    "https://firebasestorage.googleapis.com/v0/b/indirioo-51f39.appspot.com/o/RestaurantFıeldImages%2FsokakLezzetleri.jpgSat%20May%2020%202023%2022%3A14%3A18%20GMT%2B0300%20(GMT%2B03%3A00)?alt=media&token=4a9ea604-99bb-43a1-8c8e-ff0703eeade2",
-  ],
-  [
-    "CIGKOFTE",
-    "CIGKOFTE",
-    "https://firebasestorage.googleapis.com/v0/b/indirioo-51f39.appspot.com/o/RestaurantFıeldImages%2Fcigkofte.jpgSat%20May%2020%202023%2022%3A11%3A27%20GMT%2B0300%20(GMT%2B03%3A00)?alt=media&token=32ee5764-3e16-4591-b3a2-ac70b6346301",
-  ],
-  [
-    "TOST",
-    "TOST",
-    "https://firebasestorage.googleapis.com/v0/b/indirioo-51f39.appspot.com/o/RestaurantFıeldImages%2Ftost.jpgSat%20May%2020%202023%2022%3A14%3A42%20GMT%2B0300%20(GMT%2B03%3A00)?alt=media&token=4acbaf52-1d3a-4477-9099-ec5e472c8d7a",
-  ],
-  [
     "EV YEMEKLERI",
     "EV-YEMEKLERI",
     "https://firebasestorage.googleapis.com/v0/b/indirioo-51f39.appspot.com/o/RestaurantFıeldImages%2FevYemekleri.jpgSat%20May%2020%202023%2022%3A12%3A34%20GMT%2B0300%20(GMT%2B03%3A00)?alt=media&token=241b47a2-9b9d-436a-8f4c-958f0c682f5f",
-  ],
-  [
-    "DUNYA MUTFAGI",
-    "DUNYA-MUTFAGI",
-    "https://firebasestorage.googleapis.com/v0/b/indirioo-51f39.appspot.com/o/RestaurantFıeldImages%2FdunyaMutfaklari.jpgSat%20May%2020%202023%2022%3A12%3A27%20GMT%2B0300%20(GMT%2B03%3A00)?alt=media&token=9cc91d50-5a5e-4e7e-90d8-6933a3bf594c",
-  ],
-  [
-    "VEJETERYAN",
-    "VEJETERYAN",
-    "https://firebasestorage.googleapis.com/v0/b/indirioo-51f39.appspot.com/o/RestaurantFıeldImages%2Fvejeteryan.jpgSat%20May%2020%202023%2022%3A14%3A50%20GMT%2B0300%20(GMT%2B03%3A00)?alt=media&token=4dde96d7-ac93-4e6f-8f25-129dacfa09e8",
-  ],
-  [
-    "KAHVALTI",
-    "KAHVALTI",
-    "https://firebasestorage.googleapis.com/v0/b/indirioo-51f39.appspot.com/o/RestaurantFıeldImages%2Fkahve.jpgSat%20May%2020%202023%2022%3A12%3A49%20GMT%2B0300%20(GMT%2B03%3A00)?alt=media&token=9c65639a-1268-477b-a368-832b5489aae1",
-  ],
-  [
-    "PASTANE/FIRIN",
-    "PASTANE-FIRIN",
-    "https://firebasestorage.googleapis.com/v0/b/indirioo-51f39.appspot.com/o/RestaurantFıeldImages%2Fpastane.jpgSat%20May%2020%202023%2022%3A13%3A45%20GMT%2B0300%20(GMT%2B03%3A00)?alt=media&token=b80f55d2-4ff0-47b1-a17d-67421fce50db",
-  ],
-  [
-    "SALATA",
-    "SALATA",
-    "https://firebasestorage.googleapis.com/v0/b/indirioo-51f39.appspot.com/o/RestaurantFıeldImages%2Fsalata.jpgSat%20May%2020%202023%2022%3A14%3A12%20GMT%2B0300%20(GMT%2B03%3A00)?alt=media&token=2941f08c-5720-4a54-8a71-21a3a9aae2e0",
   ],
   [
     "MANTI",
@@ -85,9 +45,14 @@ export default [
     "https://firebasestorage.googleapis.com/v0/b/indirioo-51f39.appspot.com/o/RestaurantFıeldImages%2Fmanti.jpgSat%20May%2020%202023%2022%3A13%3A25%20GMT%2B0300%20(GMT%2B03%3A00)?alt=media&token=d43628ce-4593-4253-bb23-6488f8208c97",
   ],
   [
-    "DENIZ URUNLERI",
-    "DENIZ-URUNLERI",
-    "https://firebasestorage.googleapis.com/v0/b/indirioo-51f39.appspot.com/o/RestaurantFıeldImages%2Fbalik.jpgSat%20May%2020%202023%2022%3A11%3A03%20GMT%2B0300%20(GMT%2B03%3A00)?alt=media&token=b0759470-9674-459e-94f2-ed32fab31036",
+    "DUNYA MUTFAGI",
+    "DUNYA-MUTFAGI",
+    "https://firebasestorage.googleapis.com/v0/b/indirioo-51f39.appspot.com/o/RestaurantFıeldImages%2FdunyaMutfaklari.jpgSat%20May%2020%202023%2022%3A12%3A27%20GMT%2B0300%20(GMT%2B03%3A00)?alt=media&token=9cc91d50-5a5e-4e7e-90d8-6933a3bf594c",
+  ],
+  [
+    "TOST",
+    "TOST",
+    "https://firebasestorage.googleapis.com/v0/b/indirioo-51f39.appspot.com/o/RestaurantFıeldImages%2Ftost.jpgSat%20May%2020%202023%2022%3A14%3A42%20GMT%2B0300%20(GMT%2B03%3A00)?alt=media&token=4acbaf52-1d3a-4477-9099-ec5e472c8d7a",
   ],
   [
     "TANTUNI",
@@ -100,9 +65,49 @@ export default [
     "https://firebasestorage.googleapis.com/v0/b/indirioo-51f39.appspot.com/o/RestaurantFıeldImages%2Fpilav.jpgSat%20May%2020%202023%2022%3A13%3A53%20GMT%2B0300%20(GMT%2B03%3A00)?alt=media&token=ec98d417-e059-4256-aae3-c6c285aac9bc",
   ],
   [
+    "CIGKOFTE",
+    "CIGKOFTE",
+    "https://firebasestorage.googleapis.com/v0/b/indirioo-51f39.appspot.com/o/RestaurantFıeldImages%2Fcigkofte.jpgSat%20May%2020%202023%2022%3A11%3A27%20GMT%2B0300%20(GMT%2B03%3A00)?alt=media&token=32ee5764-3e16-4591-b3a2-ac70b6346301",
+  ],
+  [
     "MEZE",
     "MEZE",
     "https://firebasestorage.googleapis.com/v0/b/indirioo-51f39.appspot.com/o/RestaurantFıeldImages%2Fmeze.jpgSat%20May%2020%202023%2022%3A13%3A35%20GMT%2B0300%20(GMT%2B03%3A00)?alt=media&token=f6131ea7-86d6-4d50-b4d4-802a34b732f9",
+  ],
+  [
+    "VEJETERYAN",
+    "VEJETERYAN",
+    "https://firebasestorage.googleapis.com/v0/b/indirioo-51f39.appspot.com/o/RestaurantFıeldImages%2Fvejeteryan.jpgSat%20May%2020%202023%2022%3A14%3A50%20GMT%2B0300%20(GMT%2B03%3A00)?alt=media&token=4dde96d7-ac93-4e6f-8f25-129dacfa09e8",
+  ],
+  [
+    "SALATA",
+    "SALATA",
+    "https://firebasestorage.googleapis.com/v0/b/indirioo-51f39.appspot.com/o/RestaurantFıeldImages%2Fsalata.jpgSat%20May%2020%202023%2022%3A14%3A12%20GMT%2B0300%20(GMT%2B03%3A00)?alt=media&token=2941f08c-5720-4a54-8a71-21a3a9aae2e0",
+  ],
+  [
+    "KUMPIR/WAFFLE",
+    "KUMPIR-WAFFLE",
+    "https://firebasestorage.googleapis.com/v0/b/indirioo-51f39.appspot.com/o/RestaurantFıeldImages%2FkumpirFri%20Jun%2009%202023%2020%3A53%3A24%20GMT%2B0300%20(GMT%2B03%3A00)?alt=media&token=6a72fec1-3ca0-445a-8d6a-4d2e2cb5834a&_gl=1*1dkg7g8*_ga*MTQ2MTc3MjM4OC4xNjc5NDA5MjY4*_ga_CW55HF8NVT*MTY4NjMzMjQ1Ny4yNy4xLjE2ODYzMzMyMTYuMC4wLjA.",
+  ],
+  [
+    "SOKAK LEZZETLERI",
+    "SOKAK-LEZZETLERI",
+    "https://firebasestorage.googleapis.com/v0/b/indirioo-51f39.appspot.com/o/RestaurantFıeldImages%2FsokakFri%20Jun%2009%202023%2020%3A49%3A16%20GMT%2B0300%20(GMT%2B03%3A00)?alt=media&token=2f1da8ea-027b-4a87-af1b-111efad35ecd&_gl=1*9geutg*_ga*MTQ2MTc3MjM4OC4xNjc5NDA5MjY4*_ga_CW55HF8NVT*MTY4NjMzMjQ1Ny4yNy4xLjE2ODYzMzI5NzAuMC4wLjA.",
+  ],
+  [
+    "DENIZ URUNLERI",
+    "DENIZ-URUNLERI",
+    "https://firebasestorage.googleapis.com/v0/b/indirioo-51f39.appspot.com/o/RestaurantFıeldImages%2Fbalik.jpgSat%20May%2020%202023%2022%3A11%3A03%20GMT%2B0300%20(GMT%2B03%3A00)?alt=media&token=b0759470-9674-459e-94f2-ed32fab31036",
+  ],
+  [
+    "KAHVALTI",
+    "KAHVALTI",
+    "https://firebasestorage.googleapis.com/v0/b/indirioo-51f39.appspot.com/o/RestaurantFıeldImages%2Fkahvalti.jpgSat%20May%2020%202023%2022%3A12%3A41%20GMT%2B0300%20(GMT%2B03%3A00)?alt=media&token=ae36ad1b-0406-4705-b8c8-38781e1778bb&_gl=1*1k46uys*_ga*MTQ2MTc3MjM4OC4xNjc5NDA5MjY4*_ga_CW55HF8NVT*MTY4NjQwMjMxOS4zMC4xLjE2ODY0MDMzOTUuMC4wLjA.",
+  ],
+  [
+    "PASTANE/FIRIN",
+    "PASTANE-FIRIN",
+    "https://firebasestorage.googleapis.com/v0/b/indirioo-51f39.appspot.com/o/RestaurantFıeldImages%2Fpastane.jpgSat%20May%2020%202023%2022%3A13%3A45%20GMT%2B0300%20(GMT%2B03%3A00)?alt=media&token=b80f55d2-4ff0-47b1-a17d-67421fce50db",
   ],
   [
     "DONDURMA",

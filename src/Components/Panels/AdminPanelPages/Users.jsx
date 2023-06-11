@@ -1,17 +1,18 @@
-import React, { useState, useEffect } from "react";
 import { Box, Container } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { auth, db } from "../../../firebase";
+import { collection, onSnapshot } from "firebase/firestore";
+
+import Button from "@mui/material/Button";
+import Paper from "@mui/material/Paper";
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
-import Button from "@mui/material/Button";
-import { onSnapshot, collection } from "firebase/firestore";
 import { deleteUser } from "firebase/auth";
-import { db, auth } from "../../../firebase";
 
 function Users() {
   const [data, setData] = useState([]);
@@ -47,6 +48,9 @@ function Users() {
           <TableHead>
             <TableRow>
               <TableCell>E-POSTA</TableCell>
+              <TableCell>Ad Soyad</TableCell>
+              <TableCell>Telefon</TableCell>
+              <TableCell>Kullanılan Kodlar</TableCell>
               <TableCell align="right">RESTORAN SAHIPLIK DURUMU</TableCell>
             </TableRow>
           </TableHead>
@@ -59,6 +63,33 @@ function Users() {
                 <TableCell component="th" scope="row">
                   {row.mail}
                 </TableCell>
+                <TableCell component="th" scope="row">
+                  {row.name && row.name}
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  {row.phone && row.phone}
+                </TableCell>
+                {<row className="usedCodes"></row> && (
+                  <TableCell component={"th"} scope="row">
+                    <select
+                      style={{
+                        width: "150px",
+                        height: "30px",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <option defaultValue={0}>
+                        KOD TOPLAM:
+                        {row.usedCodes.length > 0 ? row.usedCodes.length : 0}
+                      </option>
+                      {row.usedCodes.map((code, idx) => (
+                        <option>{code}</option>
+                      ))}
+                    </select>
+                  </TableCell>
+                )}
                 <TableCell align="right">
                   {row.restaurantOwner ? "EVET" : "HAYIR"}
                 </TableCell>

@@ -1,10 +1,11 @@
+import { Box, TextField, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { auth, db } from "../../../firebase";
-import { onAuthStateChanged } from "firebase/auth";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { Box, TextField, Typography } from "@mui/material";
-import { Button } from "@mui/material";
 import { collection, doc, setDoc } from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+
+import { Button } from "@mui/material";
+import { onAuthStateChanged } from "firebase/auth";
 import { storage } from "../../../firebase";
 
 function AddToMenu(props) {
@@ -35,7 +36,7 @@ function AddToMenu(props) {
           price: price,
           imgUrl: imgUrl,
           oldPrice: oldPrice,
-
+          stock: true,
           superDiscount: false,
           date: new Date(),
         })
@@ -73,6 +74,7 @@ function AddToMenu(props) {
           description: description,
           price: price,
           imgUrl: imgUrl,
+          stock: true,
           oldPrice: oldPrice,
           superDiscount: false,
           date: new Date(),
@@ -108,13 +110,11 @@ function AddToMenu(props) {
 
     return () => unsubscribe();
   }, [auth]);
+  /* `Restaurant/${auth.currentUser.uid}/${imgUpload.name + new Date() */
   function handleUploadImg(e) {
     if (!props.params) {
       if (imgUpload == null) return;
-      const imageRef = ref(
-        storage,
-        `Restaurant/${auth.currentUser.uid}/${imgUpload.name + new Date()}`
-      );
+      const imageRef = ref(storage, `images/burger${new Date()}`);
       uploadBytes(imageRef, imgUpload).then((snapshot) => {
         getDownloadURL(snapshot.ref).then((url) => {
           setImgUrl(url);
@@ -124,7 +124,8 @@ function AddToMenu(props) {
       if (imgUpload == null) return;
       const imageRef = ref(
         storage,
-        `Restaurant/${props.params}/${imgUpload.name + new Date()}`
+        `RestaurantFıeldImages/kumpir${new Date()}`
+        /* `Restaurant/${props.params}/${imgUpload.name + new Date()}` */
       );
       uploadBytes(imageRef, imgUpload).then((snapshot) => {
         getDownloadURL(snapshot.ref).then((url) => {
@@ -184,7 +185,6 @@ function AddToMenu(props) {
         type="file"
         onChange={(e) => {
           setImgUpload(e.target.files[0]);
-          console.log(imgUpload);
         }}
       />
       <Button

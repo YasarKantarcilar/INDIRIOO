@@ -88,6 +88,7 @@ function RestaurantApplication() {
         closingTime: closingTime,
         address: address,
         field: field,
+        usedCodes: [],
       })
         .then(() => {
           settext("BASVURUNUZ ALINMISTIR, YONLENDIRILIYORSUNUZ");

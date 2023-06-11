@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { Container, Box, Typography, Button } from "@mui/material";
+import { Box, Button, Container, Typography } from "@mui/material";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+import React, { useEffect, useState } from "react";
+import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+
+import Footer from "../Layout/Footer";
 import Image from "mui-image";
-import Navbar from "../Layout/Navbar";
-import { doc, getDoc, collection, getDocs } from "firebase/firestore";
-import { db } from "../../firebase";
 import Map from "../MainMenu/Map";
 import MarkerIcon from "../../Assets/MarkerIcon/MarkerIcon.png";
+import Navbar from "../Layout/Navbar";
+import { db } from "../../firebase";
 import { useNavigate } from "react-router-dom";
-import Footer from "../Layout/Footer";
+import { useParams } from "react-router-dom";
 
 function Restaurant() {
   const navigate = useNavigate();
@@ -70,7 +71,6 @@ function Restaurant() {
         console.log("Error getting document:", error);
       });
   }, []);
-  console.log(menuData);
   return (
     <>
       <Navbar />
@@ -258,9 +258,8 @@ function Restaurant() {
                 }}
                 variant="P"
               >
-                INDIRIOO: {superMenu.name}
+                INDIRIOO {superMenu.name}
               </Typography>
-
               <Box
                 sx={{
                   mx: "5%",
@@ -331,7 +330,7 @@ function Restaurant() {
                   <Typography
                     sx={{
                       color: "orange",
-                      height: "10%",
+                      height: "12%",
                       overflow: "hidden",
                       display: "block",
                       textAlign: "center",
@@ -410,14 +409,14 @@ function Restaurant() {
                   <Typography
                     sx={{
                       color: "orange",
-                      height: "10%",
+                      height: "12%",
                       overflow: "hidden",
                       display: "block",
                       textAlign: "center",
                     }}
                     variant="P"
                   >
-                    INDIRIOO: {item.name}
+                    INDIRIOO {item.name}
                   </Typography>
 
                   <Box
