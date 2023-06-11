@@ -40,8 +40,8 @@ export default [
     "https://firebasestorage.googleapis.com/v0/b/indirioo-51f39.appspot.com/o/RestaurantFıeldImages%2FevYemekleri.jpgSat%20May%2020%202023%2022%3A12%3A34%20GMT%2B0300%20(GMT%2B03%3A00)?alt=media&token=241b47a2-9b9d-436a-8f4c-958f0c682f5f",
   ],
   [
-    "MANTI",
-    "MANTI",
+    "MANTI/GOZLEME",
+    "MANTI-GOZLEME",
     "https://firebasestorage.googleapis.com/v0/b/indirioo-51f39.appspot.com/o/RestaurantFıeldImages%2Fmanti.jpgSat%20May%2020%202023%2022%3A13%3A25%20GMT%2B0300%20(GMT%2B03%3A00)?alt=media&token=d43628ce-4593-4253-bb23-6488f8208c97",
   ],
   [
@@ -50,8 +50,8 @@ export default [
     "https://firebasestorage.googleapis.com/v0/b/indirioo-51f39.appspot.com/o/RestaurantFıeldImages%2FdunyaMutfaklari.jpgSat%20May%2020%202023%2022%3A12%3A27%20GMT%2B0300%20(GMT%2B03%3A00)?alt=media&token=9cc91d50-5a5e-4e7e-90d8-6933a3bf594c",
   ],
   [
-    "TOST",
-    "TOST",
+    "TOST/SANDVIC",
+    "TOST-SANDVIC",
     "https://firebasestorage.googleapis.com/v0/b/indirioo-51f39.appspot.com/o/RestaurantFıeldImages%2Ftost.jpgSat%20May%2020%202023%2022%3A14%3A42%20GMT%2B0300%20(GMT%2B03%3A00)?alt=media&token=4acbaf52-1d3a-4477-9099-ec5e472c8d7a",
   ],
   [
@@ -60,8 +60,8 @@ export default [
     "https://firebasestorage.googleapis.com/v0/b/indirioo-51f39.appspot.com/o/RestaurantFıeldImages%2Ftantuni.jpgSat%20May%2020%202023%2022%3A14%3A27%20GMT%2B0300%20(GMT%2B03%3A00)?alt=media&token=c32cbb1c-4028-4d30-b447-3d06857a8abf",
   ],
   [
-    "PILAV",
-    "PILAV",
+    "PILAV/MAKARNA",
+    "PILAV-MAKARNA",
     "https://firebasestorage.googleapis.com/v0/b/indirioo-51f39.appspot.com/o/RestaurantFıeldImages%2Fpilav.jpgSat%20May%2020%202023%2022%3A13%3A53%20GMT%2B0300%20(GMT%2B03%3A00)?alt=media&token=ec98d417-e059-4256-aae3-c6c285aac9bc",
   ],
   [
