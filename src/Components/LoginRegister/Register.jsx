@@ -132,7 +132,7 @@ function Register() {
 
           <Box
             sx={{
-              width: "230px",
+              width: "220px",
               display: "flex",
               justifyContent: "flex-start",
               alignItems: "center",
@@ -140,7 +140,6 @@ function Register() {
           >
             <FormControlLabel
               control={<Checkbox />}
-              label="OKUDUM"
               onChange={(e) => {
                 setisChecked(e.target.checked);
               }}
@@ -149,7 +148,7 @@ function Register() {
               to={"https://indirioo.com/#/Privacy"}
               style={{ color: "orange" }}
             >
-              ONAYLIYORUM
+              Sözleşmeleri, Okudum. Onaylıyorum
             </Link>
           </Box>
 

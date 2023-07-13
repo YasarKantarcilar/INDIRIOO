@@ -53,7 +53,7 @@ function Footer() {
               <Typography
                 sx={{ fontSize: 20, fontWeight: 800, color: "white" }}
               >
-                GIZLILIK POLITIKASI/KVKK
+                Sözleşmeler
               </Typography>
             </Link>
           </Box>
@@ -103,10 +103,10 @@ function Footer() {
               }}
             />
             <Link
-              to={"https://wa.me/905353953535"}
+              to={"https://wa.me/905393953535"}
               sx={{ fontSize: "10", fontWeight: "700" }}
             >
-              0535 395 35 35
+              0539 395 35 35
             </Link>
           </Box>
           <Box sx={{ display: "flex" }}>
